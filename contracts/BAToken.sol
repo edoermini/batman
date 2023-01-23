@@ -2,10 +2,14 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract BAToken {
-    address payable minter;//must be internal? internal is set by default and it must be payable, il msg.sender 
-    mapping(address => uint) public balance;
+contract BAToken { 
     uint public constant PRICE = 2 * 1e15;
+    uint public verifyCost;
+    mapping(address => uint) public balance;
+    
+    address payable minter;
+    uint totalAddresses;
+    uint totalBalance;
 
     enum ExploitType {
         DOS,
@@ -14,7 +18,7 @@ contract BAToken {
         Webapp
     }
 
-    mapping(string => ExploitType) private stringToExploitType;
+    mapping(string => ExploitType) stringToExploitType;
 
     struct PoC {
         uint pocID;
@@ -26,39 +30,119 @@ contract BAToken {
         ExploitType exploit;
         string title;
         bool verified;
-        mapping(address => uint) verifiers;
+        address[] verifiers;
+        uint[] tokens;
+        mapping(address => bool) hasVerified;
     }
 
-    PoC[] PoCs;
+    PoC[] public pocs;
 
     constructor() {
-        minter = (payable)msg.sender;// qua ci va il cast (payable) per rendere msg.sender payable che non lo è 
+        minter = payable(msg.sender);// qua ci va il cast (payable) per rendere msg.sender payable che non lo è 
+        totalAddresses = 0;
+        totalBalance = 0;
+        verifyCost = 10;
         stringToExploitType["DOS"] = ExploitType.DOS;
         stringToExploitType["Local"] = ExploitType.Local;
         stringToExploitType["Remote"] = ExploitType.Remote;
         stringToExploitType["Webapp"] = ExploitType.Webapp;
     }
-    //miss function withdrawl(?)
-
-    //miss function transfer
 
     function mint() public payable {
         require(msg.value >= PRICE, "Not enough value for a token");
-        balance[msg.sender] += msg.value / PRICE;
+        
+        uint tokens = msg.value / PRICE;
+
+        if (balance[msg.sender] == 0) {
+            totalAddresses += 1;
+        }
+       
+        balance[msg.sender] += tokens;
+        uint intialBalance = totalBalance;
+        totalBalance += tokens;
+
+        updateVerifyCost(intialBalance);
     }
 
-    function verify(uint pocID, uint tokens) public {
-        /*
-        People must put a minimun number of token that is incremented once a PoC is verified
-        The gain for the author is 20% of the total token staked.
-        The gain for the voters is the total tokens staked by the voter + the percentage of the tokens staked
-        */
+    /*
+    In order to verify verifiers must stake a number of tokens defined by verifyCost
+    Once the majority of voters is reached for a certain PoC the author gains the 20% of the tota tokens staked
+    and the voters gain a percentage proportional to the number of voters.
+    */
+    function verify(uint pocID) public {
+        require((pocID >= 0 && pocID < pocs.length), "This PoC doesn't exist");
+        require(pocs[pocID].verified == false, "PoC already verified");
+        require(balance[msg.sender] >= verifyCost, "Not enough tokens for verify");
+        require(pocs[pocID].hasVerified[msg.sender] == false, "You already verified this PoC");
+        
+        pocs[pocID].hasVerified[msg.sender] = true;
+        pocs[pocID].verifiers.push(msg.sender);
+        pocs[pocID].tokens.push(verifyCost);
+        
+        balance[msg.sender] -= verifyCost;
+
+        if (pocs[pocID].verifiers.length < (totalAddresses/2)+1) {
+            return;
+        }
+
+        // majority reached
+
+        pocs[pocID].verified = true;
+        uint initialBalance = totalBalance;
+
+        uint totalStaked = 0;
+
+        for (uint i=0; i < pocs[pocID].tokens.length; i++) {
+            totalStaked += pocs[pocID].tokens[i];
+        }
+        
+        uint authorGain = (totalStaked*20)/100;
+        if ((totalStaked*20)%100 > 0) {
+            authorGain += 1;
+        }
+
+        balance[pocs[pocID].author] += authorGain;
+        totalBalance += authorGain;
+
+        for (uint i=0; i < pocs[pocID].verifiers.length; i++) {
+            uint gain = pocs[pocID].tokens[i]*pocs[pocID].tokens[i] / totalStaked;
+
+            if (pocs[pocID].tokens[i]*pocs[pocID].tokens[i] % totalStaked > 0) {
+                gain += 1;
+            }
+
+            balance[pocs[pocID].verifiers[i]] += verifyCost + gain;
+            totalBalance += gain;
+        }
+
+        updateVerifyCost(initialBalance);
+    }
+
+    function updateVerifyCost(uint initialBalance) private {
+        // verify cost increase proportionally to the gain of the author and verifiers
+        // verifyCost = verifyCost + verifyCost*((totalBalance/initialBalance) - 1)
+
+        uint x = totalBalance * verifyCost;
+        uint y = x / initialBalance;
+
+        if (x % initialBalance > 0) {
+            y += 1;
+        }
+
+        uint verifyCostIncrease = y - verifyCost;
+
+        verifyCost += verifyCostIncrease;
     }
 
     // function publish(string poc, uint severity, string cve, string exploit, string title, string tag)
     // function read(pocID)
     // function readAll()
     // function readAll(address author, string exploit, bool verified, uint severity)
+
+    function withdraw(uint amount) public {
+        require(msg.sender == minter, "You cannot withdraw");
+        payable(msg.sender).transfer(amount);
+    }
 
     function terminate() public {
         require(msg.sender == minter, "You can't terminate the contract");
