@@ -3,7 +3,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 contract BAToken {
-    address public minter;
+    address payable minter;//must be internal? internal is set by default and it must be payable, il msg.sender 
     mapping(address => uint) public balance;
     uint public constant PRICE = 2 * 1e15;
 
@@ -32,12 +32,15 @@ contract BAToken {
     PoC[] PoCs;
 
     constructor() {
-        minter = msg.sender;
+        minter = (payable)msg.sender;// qua ci va il cast (payable) per rendere msg.sender payable che non lo è 
         stringToExploitType["DOS"] = ExploitType.DOS;
         stringToExploitType["Local"] = ExploitType.Local;
         stringToExploitType["Remote"] = ExploitType.Remote;
         stringToExploitType["Webapp"] = ExploitType.Webapp;
     }
+    //miss function withdrawl(?)
+
+    //miss function transfer
 
     function mint() public payable {
         require(msg.value >= PRICE, "Not enough value for a token");
@@ -59,7 +62,7 @@ contract BAToken {
 
     function terminate() public {
         require(msg.sender == minter, "You can't terminate the contract");
-        selfdestruct(payable(minter));
+        selfdestruct(minter);
     }
 
     
