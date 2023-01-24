@@ -1,0 +1,1845 @@
+{
+    "contractName": "BAToken",
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [],
+            "name": "PRICE",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "balance",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "mint",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "minter",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "terminate",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "pocID",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokens",
+                    "type": "uint256"
+                }
+            ],
+            "name": "verify",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"PRICE\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"balance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"mint\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"minter\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"terminate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"pocID\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"tokens\",\"type\":\"uint256\"}],\"name\":\"verify\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/edoardo/Documents/projects/batman/contracts/BAToken.sol\":\"BAToken\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/edoardo/Documents/projects/batman/contracts/BAToken.sol\":{\"keccak256\":\"0xa5bea853203411dea8f484060a55164bddcac4388507c6cb7ff51d9adfb126dd\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://ed1a45a22c76794dc5a767f28880103e595d69ca99b470355844248dc3f3bc20\",\"dweb:/ipfs/QmTgje23zVSTFboU5SFUJrk89VyszdZMmsgbhVNgU39CKq\"]}},\"version\":1}",
+    "bytecode": "608060405234801561001057600080fd5b50600080546001600160a01b0319163317815560405160029061003c9062444f5360e81b815260030190565b908152604051908190036020019020805460ff191660018360038111156100655761006561014e565b0217905550600160026040516100869064131bd8d85b60da1b815260050190565b908152604051908190036020019020805460ff191660018360038111156100af576100af61014e565b02179055506002806040516100d0906552656d6f746560d01b815260060190565b908152604051908190036020019020805460ff191660018360038111156100f9576100f961014e565b02179055506003600260405161011b906505765626170760d41b815260060190565b908152604051908190036020019020805460ff191660018360038111156101445761014461014e565b0217905550610164565b634e487b7160e01b600052602160045260246000fd5b6102f7806101736000396000f3fe6080604052600436106100555760003560e01c8063075461721461005a5780630c08bf88146100975780631249c58b146100ae57806341161b10146100b65780638d859f3e146100d5578063e3d670d7146100fe575b600080fd5b34801561006657600080fd5b5060005461007a906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b3480156100a357600080fd5b506100ac61012b565b005b6100ac610198565b3480156100c257600080fd5b506100ac6100d1366004610226565b5050565b3480156100e157600080fd5b506100f066071afd498d000081565b60405190815260200161008e565b34801561010a57600080fd5b506100f0610119366004610248565b60016020526000908152604090205481565b6000546001600160a01b0316331461018a5760405162461bcd60e51b815260206004820181905260248201527f596f752063616e2774207465726d696e6174652074686520636f6e747261637460448201526064015b60405180910390fd5b6000546001600160a01b0316ff5b66071afd498d00003410156101ef5760405162461bcd60e51b815260206004820152601c60248201527f4e6f7420656e6f7567682076616c756520666f72206120746f6b656e000000006044820152606401610181565b61020066071afd498d000034610278565b336000908152600160205260408120805490919061021f90849061029a565b9091555050565b6000806040838503121561023957600080fd5b50508035926020909101359150565b60006020828403121561025a57600080fd5b81356001600160a01b038116811461027157600080fd5b9392505050565b60008261029557634e487b7160e01b600052601260045260246000fd5b500490565b808201808211156102bb57634e487b7160e01b600052601160045260246000fd5b9291505056fea264697066735822122075c0d1a105302f7d8839449101ba58bf50dcae0121c1c4bd05508aa7bedf93a564736f6c63430008110033",
+    "deployedBytecode": "6080604052600436106100555760003560e01c8063075461721461005a5780630c08bf88146100975780631249c58b146100ae57806341161b10146100b65780638d859f3e146100d5578063e3d670d7146100fe575b600080fd5b34801561006657600080fd5b5060005461007a906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b3480156100a357600080fd5b506100ac61012b565b005b6100ac610198565b3480156100c257600080fd5b506100ac6100d1366004610226565b5050565b3480156100e157600080fd5b506100f066071afd498d000081565b60405190815260200161008e565b34801561010a57600080fd5b506100f0610119366004610248565b60016020526000908152604090205481565b6000546001600160a01b0316331461018a5760405162461bcd60e51b815260206004820181905260248201527f596f752063616e2774207465726d696e6174652074686520636f6e747261637460448201526064015b60405180910390fd5b6000546001600160a01b0316ff5b66071afd498d00003410156101ef5760405162461bcd60e51b815260206004820152601c60248201527f4e6f7420656e6f7567682076616c756520666f72206120746f6b656e000000006044820152606401610181565b61020066071afd498d000034610278565b336000908152600160205260408120805490919061021f90849061029a565b9091555050565b6000806040838503121561023957600080fd5b50508035926020909101359150565b60006020828403121561025a57600080fd5b81356001600160a01b038116811461027157600080fd5b9392505050565b60008261029557634e487b7160e01b600052601260045260246000fd5b500490565b808201808211156102bb57634e487b7160e01b600052601160045260246000fd5b9291505056fea264697066735822122075c0d1a105302f7d8839449101ba58bf50dcae0121c1c4bd05508aa7bedf93a564736f6c63430008110033",
+    "sourceMap": "70:1794:0:-:0;;;658:282;;;;;;;;;-1:-1:-1;682:6:0;:19;;-1:-1:-1;;;;;;682:19:0;691:10;682:19;;;711:26;;:19;;:26;;-1:-1:-1;;;216:18:1;;259:1;250:11;;14:253;711:26:0;;;;;;;;;;;;;;:44;;-1:-1:-1;;711:44:0;;;;;;;;;;;:::i;:::-;;;;;;796:17;765:19;:28;;;;-1:-1:-1;;;606:20:1;;651:1;642:11;;404:255;765:28:0;;;;;;;;;;;;;;:48;;-1:-1:-1;;765:48:0;;;;;;;;;;;:::i;:::-;;;;;;855:18;823:19;:29;;;;-1:-1:-1;;;866:21:1;;912:1;903:11;;664:256;823:29:0;;;;;;;;;;;;;;:50;;-1:-1:-1;;823:50:0;;;;;;;;;;;:::i;:::-;;;;;;915:18;883:19;:29;;;;-1:-1:-1;;;1127:21:1;;1173:1;1164:11;;925:256;883:29:0;;;;;;;;;;;;;;:50;;-1:-1:-1;;883:50:0;;;;;;;;;;;:::i;:::-;;;;;;70:1794;;272:127:1;333:10;328:3;324:20;321:1;314:31;364:4;361:1;354:15;388:4;385:1;378:15;925:256;70:1794:0;;;;;;",
+    "deployedSourceMap": "70:1794:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;93:21;;;;;;;;;;-1:-1:-1;93:21:0;;;;-1:-1:-1;;;;;93:21:0;;;;;;-1:-1:-1;;;;;178:32:1;;;160:51;;148:2;133:18;93:21:0;;;;;;;;1707:149;;;;;;;;;;;;;:::i;:::-;;946:157;;;:::i;1109:346::-;;;;;;;;;;-1:-1:-1;1109:346:0;;;;;:::i;:::-;;;;165:37;;;;;;;;;;;;194:8;165:37;;;;;621:25:1;;;609:2;594:18;165:37:0;475:177:1;120:39:0;;;;;;;;;;-1:-1:-1;120:39:0;;;;;:::i;:::-;;;;;;;;;;;;;;1707:149;1767:6;;-1:-1:-1;;;;;1767:6:0;1753:10;:20;1745:65;;;;-1:-1:-1;;;1745:65:0;;1150:2:1;1745:65:0;;;1132:21:1;;;1169:18;;;1162:30;1228:34;1208:18;;;1201:62;1280:18;;1745:65:0;;;;;;;;;1841:6;;-1:-1:-1;;;;;1841:6:0;1820:29;946:157;194:8;995:9;:18;;987:59;;;;-1:-1:-1;;;987:59:0;;1511:2:1;987:59:0;;;1493:21:1;1550:2;1530:18;;;1523:30;1589;1569:18;;;1562:58;1637:18;;987:59:0;1309:352:1;987:59:0;1079:17;194:8;1079:9;:17;:::i;:::-;1064:10;1056:19;;;;:7;:19;;;;;:40;;:19;;;:40;;;;;:::i;:::-;;;;-1:-1:-1;;946:157:0:o;222:248:1:-;290:6;298;351:2;339:9;330:7;326:23;322:32;319:52;;;367:1;364;357:12;319:52;-1:-1:-1;;390:23:1;;;460:2;445:18;;;432:32;;-1:-1:-1;222:248:1:o;657:286::-;716:6;769:2;757:9;748:7;744:23;740:32;737:52;;;785:1;782;775:12;737:52;811:23;;-1:-1:-1;;;;;863:31:1;;853:42;;843:70;;909:1;906;899:12;843:70;932:5;657:286;-1:-1:-1;;;657:286:1:o;1666:217::-;1706:1;1732;1722:132;;1776:10;1771:3;1767:20;1764:1;1757:31;1811:4;1808:1;1801:15;1839:4;1836:1;1829:15;1722:132;-1:-1:-1;1868:9:1;;1666:217::o;1888:222::-;1953:9;;;1974:10;;;1971:133;;;2026:10;2021:3;2017:20;2014:1;2007:31;2061:4;2058:1;2051:15;2089:4;2086:1;2079:15;1971:133;1888:222;;;;:::o",
+    "sourcePath": "/home/edoardo/Documents/projects/batman/contracts/BAToken.sol",
+    "compiler": {
+        "name": "solc",
+        "version": "0.8.17+commit.8df45f5f"
+    },
+    "ast": {
+        "absolutePath": "/home/edoardo/Documents/projects/batman/contracts/BAToken.sol",
+        "exportedSymbols": {
+            "BAToken": [
+                137
+            ]
+        },
+        "id": 138,
+        "license": "GPL-3.0",
+        "nodeType": "SourceUnit",
+        "nodes": [
+            {
+                "id": 1,
+                "literals": [
+                    "solidity",
+                    ">=",
+                    "0.7",
+                    ".0",
+                    "<",
+                    "0.9",
+                    ".0"
+                ],
+                "nodeType": "PragmaDirective",
+                "src": "37:31:0"
+            },
+            {
+                "abstract": false,
+                "baseContracts": [],
+                "canonicalName": "BAToken",
+                "contractDependencies": [],
+                "contractKind": "contract",
+                "fullyImplemented": true,
+                "id": 137,
+                "linearizedBaseContracts": [
+                    137
+                ],
+                "name": "BAToken",
+                "nameLocation": "79:7:0",
+                "nodeType": "ContractDefinition",
+                "nodes": [
+                    {
+                        "constant": false,
+                        "functionSelector": "07546172",
+                        "id": 3,
+                        "mutability": "mutable",
+                        "name": "minter",
+                        "nameLocation": "108:6:0",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 137,
+                        "src": "93:21:0",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                        },
+                        "typeName": {
+                            "id": 2,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "93:7:0",
+                            "stateMutability": "nonpayable",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                            }
+                        },
+                        "visibility": "public"
+                    },
+                    {
+                        "constant": false,
+                        "functionSelector": "e3d670d7",
+                        "id": 7,
+                        "mutability": "mutable",
+                        "name": "balance",
+                        "nameLocation": "152:7:0",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 137,
+                        "src": "120:39:0",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                            "typeString": "mapping(address => uint256)"
+                        },
+                        "typeName": {
+                            "id": 6,
+                            "keyType": {
+                                "id": 4,
+                                "name": "address",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "128:7:0",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                }
+                            },
+                            "nodeType": "Mapping",
+                            "src": "120:24:0",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                                "typeString": "mapping(address => uint256)"
+                            },
+                            "valueType": {
+                                "id": 5,
+                                "name": "uint",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "139:4:0",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                }
+                            }
+                        },
+                        "visibility": "public"
+                    },
+                    {
+                        "constant": true,
+                        "functionSelector": "8d859f3e",
+                        "id": 12,
+                        "mutability": "constant",
+                        "name": "PRICE",
+                        "nameLocation": "186:5:0",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 137,
+                        "src": "165:37:0",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                        },
+                        "typeName": {
+                            "id": 8,
+                            "name": "uint",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "165:4:0",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                            }
+                        },
+                        "value": {
+                            "commonType": {
+                                "typeIdentifier": "t_rational_2000000000000000_by_1",
+                                "typeString": "int_const 2000000000000000"
+                            },
+                            "id": 11,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "leftExpression": {
+                                "hexValue": "32",
+                                "id": 9,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "kind": "number",
+                                "lValueRequested": false,
+                                "nodeType": "Literal",
+                                "src": "194:1:0",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_rational_2_by_1",
+                                    "typeString": "int_const 2"
+                                },
+                                "value": "2"
+                            },
+                            "nodeType": "BinaryOperation",
+                            "operator": "*",
+                            "rightExpression": {
+                                "hexValue": "31653135",
+                                "id": 10,
+                                "isConstant": false,
+                                "isLValue": false,
+                                "isPure": true,
+                                "kind": "number",
+                                "lValueRequested": false,
+                                "nodeType": "Literal",
+                                "src": "198:4:0",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_rational_1000000000000000_by_1",
+                                    "typeString": "int_const 1000000000000000"
+                                },
+                                "value": "1e15"
+                            },
+                            "src": "194:8:0",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_rational_2000000000000000_by_1",
+                                "typeString": "int_const 2000000000000000"
+                            }
+                        },
+                        "visibility": "public"
+                    },
+                    {
+                        "canonicalName": "BAToken.ExploitType",
+                        "id": 17,
+                        "members": [
+                            {
+                                "id": 13,
+                                "name": "DOS",
+                                "nameLocation": "241:3:0",
+                                "nodeType": "EnumValue",
+                                "src": "241:3:0"
+                            },
+                            {
+                                "id": 14,
+                                "name": "Local",
+                                "nameLocation": "254:5:0",
+                                "nodeType": "EnumValue",
+                                "src": "254:5:0"
+                            },
+                            {
+                                "id": 15,
+                                "name": "Remote",
+                                "nameLocation": "269:6:0",
+                                "nodeType": "EnumValue",
+                                "src": "269:6:0"
+                            },
+                            {
+                                "id": 16,
+                                "name": "Webapp",
+                                "nameLocation": "285:6:0",
+                                "nodeType": "EnumValue",
+                                "src": "285:6:0"
+                            }
+                        ],
+                        "name": "ExploitType",
+                        "nameLocation": "219:11:0",
+                        "nodeType": "EnumDefinition",
+                        "src": "214:83:0"
+                    },
+                    {
+                        "constant": false,
+                        "id": 22,
+                        "mutability": "mutable",
+                        "name": "stringToExploitType",
+                        "nameLocation": "342:19:0",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 137,
+                        "src": "303:58:0",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_enum$_ExploitType_$17_$",
+                            "typeString": "mapping(string => enum BAToken.ExploitType)"
+                        },
+                        "typeName": {
+                            "id": 21,
+                            "keyType": {
+                                "id": 18,
+                                "name": "string",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "311:6:0",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_string_storage_ptr",
+                                    "typeString": "string"
+                                }
+                            },
+                            "nodeType": "Mapping",
+                            "src": "303:30:0",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_enum$_ExploitType_$17_$",
+                                "typeString": "mapping(string => enum BAToken.ExploitType)"
+                            },
+                            "valueType": {
+                                "id": 20,
+                                "nodeType": "UserDefinedTypeName",
+                                "pathNode": {
+                                    "id": 19,
+                                    "name": "ExploitType",
+                                    "nameLocations": [
+                                        "321:11:0"
+                                    ],
+                                    "nodeType": "IdentifierPath",
+                                    "referencedDeclaration": 17,
+                                    "src": "321:11:0"
+                                },
+                                "referencedDeclaration": 17,
+                                "src": "321:11:0",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_enum$_ExploitType_$17",
+                                    "typeString": "enum BAToken.ExploitType"
+                                }
+                            }
+                        },
+                        "visibility": "private"
+                    },
+                    {
+                        "canonicalName": "BAToken.PoC",
+                        "id": 46,
+                        "members": [
+                            {
+                                "constant": false,
+                                "id": 24,
+                                "mutability": "mutable",
+                                "name": "pocID",
+                                "nameLocation": "394:5:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "389:10:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 23,
+                                    "name": "uint",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "389:4:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 26,
+                                "mutability": "mutable",
+                                "name": "author",
+                                "nameLocation": "417:6:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "409:14:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_address",
+                                    "typeString": "address"
+                                },
+                                "typeName": {
+                                    "id": 25,
+                                    "name": "address",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "409:7:0",
+                                    "stateMutability": "nonpayable",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_address",
+                                        "typeString": "address"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 28,
+                                "mutability": "mutable",
+                                "name": "poc",
+                                "nameLocation": "440:3:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "433:10:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_string_storage_ptr",
+                                    "typeString": "string"
+                                },
+                                "typeName": {
+                                    "id": 27,
+                                    "name": "string",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "433:6:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_string_storage_ptr",
+                                        "typeString": "string"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 30,
+                                "mutability": "mutable",
+                                "name": "pocHash",
+                                "nameLocation": "460:7:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "453:14:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_string_storage_ptr",
+                                    "typeString": "string"
+                                },
+                                "typeName": {
+                                    "id": 29,
+                                    "name": "string",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "453:6:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_string_storage_ptr",
+                                        "typeString": "string"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 32,
+                                "mutability": "mutable",
+                                "name": "severity",
+                                "nameLocation": "482:8:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "477:13:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                },
+                                "typeName": {
+                                    "id": 31,
+                                    "name": "uint",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "477:4:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 34,
+                                "mutability": "mutable",
+                                "name": "cve",
+                                "nameLocation": "507:3:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "500:10:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_string_storage_ptr",
+                                    "typeString": "string"
+                                },
+                                "typeName": {
+                                    "id": 33,
+                                    "name": "string",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "500:6:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_string_storage_ptr",
+                                        "typeString": "string"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 37,
+                                "mutability": "mutable",
+                                "name": "exploit",
+                                "nameLocation": "532:7:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "520:19:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_enum$_ExploitType_$17",
+                                    "typeString": "enum BAToken.ExploitType"
+                                },
+                                "typeName": {
+                                    "id": 36,
+                                    "nodeType": "UserDefinedTypeName",
+                                    "pathNode": {
+                                        "id": 35,
+                                        "name": "ExploitType",
+                                        "nameLocations": [
+                                            "520:11:0"
+                                        ],
+                                        "nodeType": "IdentifierPath",
+                                        "referencedDeclaration": 17,
+                                        "src": "520:11:0"
+                                    },
+                                    "referencedDeclaration": 17,
+                                    "src": "520:11:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_enum$_ExploitType_$17",
+                                        "typeString": "enum BAToken.ExploitType"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 39,
+                                "mutability": "mutable",
+                                "name": "title",
+                                "nameLocation": "556:5:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "549:12:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_string_storage_ptr",
+                                    "typeString": "string"
+                                },
+                                "typeName": {
+                                    "id": 38,
+                                    "name": "string",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "549:6:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_string_storage_ptr",
+                                        "typeString": "string"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 41,
+                                "mutability": "mutable",
+                                "name": "verified",
+                                "nameLocation": "576:8:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "571:13:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_bool",
+                                    "typeString": "bool"
+                                },
+                                "typeName": {
+                                    "id": 40,
+                                    "name": "bool",
+                                    "nodeType": "ElementaryTypeName",
+                                    "src": "571:4:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_bool",
+                                        "typeString": "bool"
+                                    }
+                                },
+                                "visibility": "internal"
+                            },
+                            {
+                                "constant": false,
+                                "id": 45,
+                                "mutability": "mutable",
+                                "name": "verifiers",
+                                "nameLocation": "619:9:0",
+                                "nodeType": "VariableDeclaration",
+                                "scope": 46,
+                                "src": "594:34:0",
+                                "stateVariable": false,
+                                "storageLocation": "default",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                                    "typeString": "mapping(address => uint256)"
+                                },
+                                "typeName": {
+                                    "id": 44,
+                                    "keyType": {
+                                        "id": 42,
+                                        "name": "address",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "602:7:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_address",
+                                            "typeString": "address"
+                                        }
+                                    },
+                                    "nodeType": "Mapping",
+                                    "src": "594:24:0",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                                        "typeString": "mapping(address => uint256)"
+                                    },
+                                    "valueType": {
+                                        "id": 43,
+                                        "name": "uint",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "613:4:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    }
+                                },
+                                "visibility": "internal"
+                            }
+                        ],
+                        "name": "PoC",
+                        "nameLocation": "375:3:0",
+                        "nodeType": "StructDefinition",
+                        "scope": 137,
+                        "src": "368:267:0",
+                        "visibility": "public"
+                    },
+                    {
+                        "constant": false,
+                        "id": 50,
+                        "mutability": "mutable",
+                        "name": "PoCs",
+                        "nameLocation": "647:4:0",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 137,
+                        "src": "641:10:0",
+                        "stateVariable": true,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_struct$_PoC_$46_storage_$dyn_storage",
+                            "typeString": "struct BAToken.PoC[]"
+                        },
+                        "typeName": {
+                            "baseType": {
+                                "id": 48,
+                                "nodeType": "UserDefinedTypeName",
+                                "pathNode": {
+                                    "id": 47,
+                                    "name": "PoC",
+                                    "nameLocations": [
+                                        "641:3:0"
+                                    ],
+                                    "nodeType": "IdentifierPath",
+                                    "referencedDeclaration": 46,
+                                    "src": "641:3:0"
+                                },
+                                "referencedDeclaration": 46,
+                                "src": "641:3:0",
+                                "typeDescriptions": {
+                                    "typeIdentifier": "t_struct$_PoC_$46_storage_ptr",
+                                    "typeString": "struct BAToken.PoC"
+                                }
+                            },
+                            "id": 49,
+                            "nodeType": "ArrayTypeName",
+                            "src": "641:5:0",
+                            "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_struct$_PoC_$46_storage_$dyn_storage_ptr",
+                                "typeString": "struct BAToken.PoC[]"
+                            }
+                        },
+                        "visibility": "internal"
+                    },
+                    {
+                        "body": {
+                            "id": 86,
+                            "nodeType": "Block",
+                            "src": "672:268:0",
+                            "statements": [
+                                {
+                                    "expression": {
+                                        "id": 56,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "id": 53,
+                                            "name": "minter",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 3,
+                                            "src": "682:6:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_address",
+                                                "typeString": "address"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "expression": {
+                                                "id": 54,
+                                                "name": "msg",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 4294967281,
+                                                "src": "691:3:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_magic_message",
+                                                    "typeString": "msg"
+                                                }
+                                            },
+                                            "id": 55,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": false,
+                                            "lValueRequested": false,
+                                            "memberLocation": "695:6:0",
+                                            "memberName": "sender",
+                                            "nodeType": "MemberAccess",
+                                            "src": "691:10:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_address",
+                                                "typeString": "address"
+                                            }
+                                        },
+                                        "src": "682:19:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_address",
+                                            "typeString": "address"
+                                        }
+                                    },
+                                    "id": 57,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "682:19:0"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 63,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "baseExpression": {
+                                                "id": 58,
+                                                "name": "stringToExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 22,
+                                                "src": "711:19:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "mapping(string memory => enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 60,
+                                            "indexExpression": {
+                                                "hexValue": "444f53",
+                                                "id": 59,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": true,
+                                                "kind": "string",
+                                                "lValueRequested": false,
+                                                "nodeType": "Literal",
+                                                "src": "731:5:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_stringliteral_23cc0490d0b769021b2f9cc6410def079546afd3bc8b48608d8a65601327b7f0",
+                                                    "typeString": "literal_string \"DOS\""
+                                                },
+                                                "value": "DOS"
+                                            },
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "nodeType": "IndexAccess",
+                                            "src": "711:26:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "expression": {
+                                                "id": 61,
+                                                "name": "ExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 17,
+                                                "src": "740:11:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_type$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "type(enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 62,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": true,
+                                            "lValueRequested": false,
+                                            "memberLocation": "752:3:0",
+                                            "memberName": "DOS",
+                                            "nodeType": "MemberAccess",
+                                            "referencedDeclaration": 13,
+                                            "src": "740:15:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "src": "711:44:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_enum$_ExploitType_$17",
+                                            "typeString": "enum BAToken.ExploitType"
+                                        }
+                                    },
+                                    "id": 64,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "711:44:0"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 70,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "baseExpression": {
+                                                "id": 65,
+                                                "name": "stringToExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 22,
+                                                "src": "765:19:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "mapping(string memory => enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 67,
+                                            "indexExpression": {
+                                                "hexValue": "4c6f63616c",
+                                                "id": 66,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": true,
+                                                "kind": "string",
+                                                "lValueRequested": false,
+                                                "nodeType": "Literal",
+                                                "src": "785:7:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_stringliteral_47f2b88773644b48e64be148aa55382efc6aca2b65f959f66527ca874596e965",
+                                                    "typeString": "literal_string \"Local\""
+                                                },
+                                                "value": "Local"
+                                            },
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "nodeType": "IndexAccess",
+                                            "src": "765:28:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "expression": {
+                                                "id": 68,
+                                                "name": "ExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 17,
+                                                "src": "796:11:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_type$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "type(enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 69,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": true,
+                                            "lValueRequested": false,
+                                            "memberLocation": "808:5:0",
+                                            "memberName": "Local",
+                                            "nodeType": "MemberAccess",
+                                            "referencedDeclaration": 14,
+                                            "src": "796:17:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "src": "765:48:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_enum$_ExploitType_$17",
+                                            "typeString": "enum BAToken.ExploitType"
+                                        }
+                                    },
+                                    "id": 71,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "765:48:0"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 77,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "baseExpression": {
+                                                "id": 72,
+                                                "name": "stringToExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 22,
+                                                "src": "823:19:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "mapping(string memory => enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 74,
+                                            "indexExpression": {
+                                                "hexValue": "52656d6f7465",
+                                                "id": 73,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": true,
+                                                "kind": "string",
+                                                "lValueRequested": false,
+                                                "nodeType": "Literal",
+                                                "src": "843:8:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_stringliteral_f47a6392b8ab744fd30460111245075e79126d65bbf6bae4e79fd2260bc8c949",
+                                                    "typeString": "literal_string \"Remote\""
+                                                },
+                                                "value": "Remote"
+                                            },
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "nodeType": "IndexAccess",
+                                            "src": "823:29:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "expression": {
+                                                "id": 75,
+                                                "name": "ExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 17,
+                                                "src": "855:11:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_type$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "type(enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 76,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": true,
+                                            "lValueRequested": false,
+                                            "memberLocation": "867:6:0",
+                                            "memberName": "Remote",
+                                            "nodeType": "MemberAccess",
+                                            "referencedDeclaration": 15,
+                                            "src": "855:18:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "src": "823:50:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_enum$_ExploitType_$17",
+                                            "typeString": "enum BAToken.ExploitType"
+                                        }
+                                    },
+                                    "id": 78,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "823:50:0"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 84,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "baseExpression": {
+                                                "id": 79,
+                                                "name": "stringToExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 22,
+                                                "src": "883:19:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_mapping$_t_string_memory_ptr_$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "mapping(string memory => enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 81,
+                                            "indexExpression": {
+                                                "hexValue": "576562617070",
+                                                "id": 80,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": true,
+                                                "kind": "string",
+                                                "lValueRequested": false,
+                                                "nodeType": "Literal",
+                                                "src": "903:8:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_stringliteral_6bd610b1531c66d8e48e543e8f71120e4ea7f3e031f537aefea8e9fe636ca8a0",
+                                                    "typeString": "literal_string \"Webapp\""
+                                                },
+                                                "value": "Webapp"
+                                            },
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "nodeType": "IndexAccess",
+                                            "src": "883:29:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "=",
+                                        "rightHandSide": {
+                                            "expression": {
+                                                "id": 82,
+                                                "name": "ExploitType",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 17,
+                                                "src": "915:11:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_type$_t_enum$_ExploitType_$17_$",
+                                                    "typeString": "type(enum BAToken.ExploitType)"
+                                                }
+                                            },
+                                            "id": 83,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": true,
+                                            "lValueRequested": false,
+                                            "memberLocation": "927:6:0",
+                                            "memberName": "Webapp",
+                                            "nodeType": "MemberAccess",
+                                            "referencedDeclaration": 16,
+                                            "src": "915:18:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_enum$_ExploitType_$17",
+                                                "typeString": "enum BAToken.ExploitType"
+                                            }
+                                        },
+                                        "src": "883:50:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_enum$_ExploitType_$17",
+                                            "typeString": "enum BAToken.ExploitType"
+                                        }
+                                    },
+                                    "id": 85,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "883:50:0"
+                                }
+                            ]
+                        },
+                        "id": 87,
+                        "implemented": true,
+                        "kind": "constructor",
+                        "modifiers": [],
+                        "name": "",
+                        "nameLocation": "-1:-1:-1",
+                        "nodeType": "FunctionDefinition",
+                        "parameters": {
+                            "id": 51,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "669:2:0"
+                        },
+                        "returnParameters": {
+                            "id": 52,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "672:0:0"
+                        },
+                        "scope": 137,
+                        "src": "658:282:0",
+                        "stateMutability": "nonpayable",
+                        "virtual": false,
+                        "visibility": "public"
+                    },
+                    {
+                        "body": {
+                            "id": 108,
+                            "nodeType": "Block",
+                            "src": "977:126:0",
+                            "statements": [
+                                {
+                                    "expression": {
+                                        "arguments": [
+                                            {
+                                                "commonType": {
+                                                    "typeIdentifier": "t_uint256",
+                                                    "typeString": "uint256"
+                                                },
+                                                "id": 94,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": false,
+                                                "lValueRequested": false,
+                                                "leftExpression": {
+                                                    "expression": {
+                                                        "id": 91,
+                                                        "name": "msg",
+                                                        "nodeType": "Identifier",
+                                                        "overloadedDeclarations": [],
+                                                        "referencedDeclaration": 4294967281,
+                                                        "src": "995:3:0",
+                                                        "typeDescriptions": {
+                                                            "typeIdentifier": "t_magic_message",
+                                                            "typeString": "msg"
+                                                        }
+                                                    },
+                                                    "id": 92,
+                                                    "isConstant": false,
+                                                    "isLValue": false,
+                                                    "isPure": false,
+                                                    "lValueRequested": false,
+                                                    "memberLocation": "999:5:0",
+                                                    "memberName": "value",
+                                                    "nodeType": "MemberAccess",
+                                                    "src": "995:9:0",
+                                                    "typeDescriptions": {
+                                                        "typeIdentifier": "t_uint256",
+                                                        "typeString": "uint256"
+                                                    }
+                                                },
+                                                "nodeType": "BinaryOperation",
+                                                "operator": ">=",
+                                                "rightExpression": {
+                                                    "id": 93,
+                                                    "name": "PRICE",
+                                                    "nodeType": "Identifier",
+                                                    "overloadedDeclarations": [],
+                                                    "referencedDeclaration": 12,
+                                                    "src": "1008:5:0",
+                                                    "typeDescriptions": {
+                                                        "typeIdentifier": "t_uint256",
+                                                        "typeString": "uint256"
+                                                    }
+                                                },
+                                                "src": "995:18:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_bool",
+                                                    "typeString": "bool"
+                                                }
+                                            },
+                                            {
+                                                "hexValue": "4e6f7420656e6f7567682076616c756520666f72206120746f6b656e",
+                                                "id": 95,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": true,
+                                                "kind": "string",
+                                                "lValueRequested": false,
+                                                "nodeType": "Literal",
+                                                "src": "1015:30:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_stringliteral_5ef1ca128e2377cd3e40edffc7c4b66ac2972085fb2bd20e4e3782930260a69d",
+                                                    "typeString": "literal_string \"Not enough value for a token\""
+                                                },
+                                                "value": "Not enough value for a token"
+                                            }
+                                        ],
+                                        "expression": {
+                                            "argumentTypes": [
+                                                {
+                                                    "typeIdentifier": "t_bool",
+                                                    "typeString": "bool"
+                                                },
+                                                {
+                                                    "typeIdentifier": "t_stringliteral_5ef1ca128e2377cd3e40edffc7c4b66ac2972085fb2bd20e4e3782930260a69d",
+                                                    "typeString": "literal_string \"Not enough value for a token\""
+                                                }
+                                            ],
+                                            "id": 90,
+                                            "name": "require",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [
+                                                4294967278,
+                                                4294967278
+                                            ],
+                                            "referencedDeclaration": 4294967278,
+                                            "src": "987:7:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                                                "typeString": "function (bool,string memory) pure"
+                                            }
+                                        },
+                                        "id": 96,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "kind": "functionCall",
+                                        "lValueRequested": false,
+                                        "nameLocations": [],
+                                        "names": [],
+                                        "nodeType": "FunctionCall",
+                                        "src": "987:59:0",
+                                        "tryCall": false,
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_tuple$__$",
+                                            "typeString": "tuple()"
+                                        }
+                                    },
+                                    "id": 97,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "987:59:0"
+                                },
+                                {
+                                    "expression": {
+                                        "id": 106,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "lValueRequested": false,
+                                        "leftHandSide": {
+                                            "baseExpression": {
+                                                "id": 98,
+                                                "name": "balance",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 7,
+                                                "src": "1056:7:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                                                    "typeString": "mapping(address => uint256)"
+                                                }
+                                            },
+                                            "id": 101,
+                                            "indexExpression": {
+                                                "expression": {
+                                                    "id": 99,
+                                                    "name": "msg",
+                                                    "nodeType": "Identifier",
+                                                    "overloadedDeclarations": [],
+                                                    "referencedDeclaration": 4294967281,
+                                                    "src": "1064:3:0",
+                                                    "typeDescriptions": {
+                                                        "typeIdentifier": "t_magic_message",
+                                                        "typeString": "msg"
+                                                    }
+                                                },
+                                                "id": 100,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": false,
+                                                "lValueRequested": false,
+                                                "memberLocation": "1068:6:0",
+                                                "memberName": "sender",
+                                                "nodeType": "MemberAccess",
+                                                "src": "1064:10:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_address",
+                                                    "typeString": "address"
+                                                }
+                                            },
+                                            "isConstant": false,
+                                            "isLValue": true,
+                                            "isPure": false,
+                                            "lValueRequested": true,
+                                            "nodeType": "IndexAccess",
+                                            "src": "1056:19:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "nodeType": "Assignment",
+                                        "operator": "+=",
+                                        "rightHandSide": {
+                                            "commonType": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            },
+                                            "id": 105,
+                                            "isConstant": false,
+                                            "isLValue": false,
+                                            "isPure": false,
+                                            "lValueRequested": false,
+                                            "leftExpression": {
+                                                "expression": {
+                                                    "id": 102,
+                                                    "name": "msg",
+                                                    "nodeType": "Identifier",
+                                                    "overloadedDeclarations": [],
+                                                    "referencedDeclaration": 4294967281,
+                                                    "src": "1079:3:0",
+                                                    "typeDescriptions": {
+                                                        "typeIdentifier": "t_magic_message",
+                                                        "typeString": "msg"
+                                                    }
+                                                },
+                                                "id": 103,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": false,
+                                                "lValueRequested": false,
+                                                "memberLocation": "1083:5:0",
+                                                "memberName": "value",
+                                                "nodeType": "MemberAccess",
+                                                "src": "1079:9:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_uint256",
+                                                    "typeString": "uint256"
+                                                }
+                                            },
+                                            "nodeType": "BinaryOperation",
+                                            "operator": "/",
+                                            "rightExpression": {
+                                                "id": 104,
+                                                "name": "PRICE",
+                                                "nodeType": "Identifier",
+                                                "overloadedDeclarations": [],
+                                                "referencedDeclaration": 12,
+                                                "src": "1091:5:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_uint256",
+                                                    "typeString": "uint256"
+                                                }
+                                            },
+                                            "src": "1079:17:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_uint256",
+                                                "typeString": "uint256"
+                                            }
+                                        },
+                                        "src": "1056:40:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "id": 107,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "1056:40:0"
+                                }
+                            ]
+                        },
+                        "functionSelector": "1249c58b",
+                        "id": 109,
+                        "implemented": true,
+                        "kind": "function",
+                        "modifiers": [],
+                        "name": "mint",
+                        "nameLocation": "955:4:0",
+                        "nodeType": "FunctionDefinition",
+                        "parameters": {
+                            "id": 88,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "959:2:0"
+                        },
+                        "returnParameters": {
+                            "id": 89,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "977:0:0"
+                        },
+                        "scope": 137,
+                        "src": "946:157:0",
+                        "stateMutability": "payable",
+                        "virtual": false,
+                        "visibility": "public"
+                    },
+                    {
+                        "body": {
+                            "id": 116,
+                            "nodeType": "Block",
+                            "src": "1157:298:0",
+                            "statements": []
+                        },
+                        "functionSelector": "41161b10",
+                        "id": 117,
+                        "implemented": true,
+                        "kind": "function",
+                        "modifiers": [],
+                        "name": "verify",
+                        "nameLocation": "1118:6:0",
+                        "nodeType": "FunctionDefinition",
+                        "parameters": {
+                            "id": 114,
+                            "nodeType": "ParameterList",
+                            "parameters": [
+                                {
+                                    "constant": false,
+                                    "id": 111,
+                                    "mutability": "mutable",
+                                    "name": "pocID",
+                                    "nameLocation": "1130:5:0",
+                                    "nodeType": "VariableDeclaration",
+                                    "scope": 117,
+                                    "src": "1125:10:0",
+                                    "stateVariable": false,
+                                    "storageLocation": "default",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    },
+                                    "typeName": {
+                                        "id": 110,
+                                        "name": "uint",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "1125:4:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "visibility": "internal"
+                                },
+                                {
+                                    "constant": false,
+                                    "id": 113,
+                                    "mutability": "mutable",
+                                    "name": "tokens",
+                                    "nameLocation": "1142:6:0",
+                                    "nodeType": "VariableDeclaration",
+                                    "scope": 117,
+                                    "src": "1137:11:0",
+                                    "stateVariable": false,
+                                    "storageLocation": "default",
+                                    "typeDescriptions": {
+                                        "typeIdentifier": "t_uint256",
+                                        "typeString": "uint256"
+                                    },
+                                    "typeName": {
+                                        "id": 112,
+                                        "name": "uint",
+                                        "nodeType": "ElementaryTypeName",
+                                        "src": "1137:4:0",
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_uint256",
+                                            "typeString": "uint256"
+                                        }
+                                    },
+                                    "visibility": "internal"
+                                }
+                            ],
+                            "src": "1124:25:0"
+                        },
+                        "returnParameters": {
+                            "id": 115,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "1157:0:0"
+                        },
+                        "scope": 137,
+                        "src": "1109:346:0",
+                        "stateMutability": "nonpayable",
+                        "virtual": false,
+                        "visibility": "public"
+                    },
+                    {
+                        "body": {
+                            "id": 135,
+                            "nodeType": "Block",
+                            "src": "1735:121:0",
+                            "statements": [
+                                {
+                                    "expression": {
+                                        "arguments": [
+                                            {
+                                                "commonType": {
+                                                    "typeIdentifier": "t_address",
+                                                    "typeString": "address"
+                                                },
+                                                "id": 124,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": false,
+                                                "lValueRequested": false,
+                                                "leftExpression": {
+                                                    "expression": {
+                                                        "id": 121,
+                                                        "name": "msg",
+                                                        "nodeType": "Identifier",
+                                                        "overloadedDeclarations": [],
+                                                        "referencedDeclaration": 4294967281,
+                                                        "src": "1753:3:0",
+                                                        "typeDescriptions": {
+                                                            "typeIdentifier": "t_magic_message",
+                                                            "typeString": "msg"
+                                                        }
+                                                    },
+                                                    "id": 122,
+                                                    "isConstant": false,
+                                                    "isLValue": false,
+                                                    "isPure": false,
+                                                    "lValueRequested": false,
+                                                    "memberLocation": "1757:6:0",
+                                                    "memberName": "sender",
+                                                    "nodeType": "MemberAccess",
+                                                    "src": "1753:10:0",
+                                                    "typeDescriptions": {
+                                                        "typeIdentifier": "t_address",
+                                                        "typeString": "address"
+                                                    }
+                                                },
+                                                "nodeType": "BinaryOperation",
+                                                "operator": "==",
+                                                "rightExpression": {
+                                                    "id": 123,
+                                                    "name": "minter",
+                                                    "nodeType": "Identifier",
+                                                    "overloadedDeclarations": [],
+                                                    "referencedDeclaration": 3,
+                                                    "src": "1767:6:0",
+                                                    "typeDescriptions": {
+                                                        "typeIdentifier": "t_address",
+                                                        "typeString": "address"
+                                                    }
+                                                },
+                                                "src": "1753:20:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_bool",
+                                                    "typeString": "bool"
+                                                }
+                                            },
+                                            {
+                                                "hexValue": "596f752063616e2774207465726d696e6174652074686520636f6e7472616374",
+                                                "id": 125,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": true,
+                                                "kind": "string",
+                                                "lValueRequested": false,
+                                                "nodeType": "Literal",
+                                                "src": "1775:34:0",
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_stringliteral_70ff5bca32a6504512301d6da54082c9712f893259fd2f3ed392a0af074a6d09",
+                                                    "typeString": "literal_string \"You can't terminate the contract\""
+                                                },
+                                                "value": "You can't terminate the contract"
+                                            }
+                                        ],
+                                        "expression": {
+                                            "argumentTypes": [
+                                                {
+                                                    "typeIdentifier": "t_bool",
+                                                    "typeString": "bool"
+                                                },
+                                                {
+                                                    "typeIdentifier": "t_stringliteral_70ff5bca32a6504512301d6da54082c9712f893259fd2f3ed392a0af074a6d09",
+                                                    "typeString": "literal_string \"You can't terminate the contract\""
+                                                }
+                                            ],
+                                            "id": 120,
+                                            "name": "require",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [
+                                                4294967278,
+                                                4294967278
+                                            ],
+                                            "referencedDeclaration": 4294967278,
+                                            "src": "1745:7:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                                                "typeString": "function (bool,string memory) pure"
+                                            }
+                                        },
+                                        "id": 126,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "kind": "functionCall",
+                                        "lValueRequested": false,
+                                        "nameLocations": [],
+                                        "names": [],
+                                        "nodeType": "FunctionCall",
+                                        "src": "1745:65:0",
+                                        "tryCall": false,
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_tuple$__$",
+                                            "typeString": "tuple()"
+                                        }
+                                    },
+                                    "id": 127,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "1745:65:0"
+                                },
+                                {
+                                    "expression": {
+                                        "arguments": [
+                                            {
+                                                "arguments": [
+                                                    {
+                                                        "id": 131,
+                                                        "name": "minter",
+                                                        "nodeType": "Identifier",
+                                                        "overloadedDeclarations": [],
+                                                        "referencedDeclaration": 3,
+                                                        "src": "1841:6:0",
+                                                        "typeDescriptions": {
+                                                            "typeIdentifier": "t_address",
+                                                            "typeString": "address"
+                                                        }
+                                                    }
+                                                ],
+                                                "expression": {
+                                                    "argumentTypes": [
+                                                        {
+                                                            "typeIdentifier": "t_address",
+                                                            "typeString": "address"
+                                                        }
+                                                    ],
+                                                    "id": 130,
+                                                    "isConstant": false,
+                                                    "isLValue": false,
+                                                    "isPure": true,
+                                                    "lValueRequested": false,
+                                                    "nodeType": "ElementaryTypeNameExpression",
+                                                    "src": "1833:8:0",
+                                                    "typeDescriptions": {
+                                                        "typeIdentifier": "t_type$_t_address_payable_$",
+                                                        "typeString": "type(address payable)"
+                                                    },
+                                                    "typeName": {
+                                                        "id": 129,
+                                                        "name": "address",
+                                                        "nodeType": "ElementaryTypeName",
+                                                        "src": "1833:8:0",
+                                                        "stateMutability": "payable",
+                                                        "typeDescriptions": {}
+                                                    }
+                                                },
+                                                "id": 132,
+                                                "isConstant": false,
+                                                "isLValue": false,
+                                                "isPure": false,
+                                                "kind": "typeConversion",
+                                                "lValueRequested": false,
+                                                "nameLocations": [],
+                                                "names": [],
+                                                "nodeType": "FunctionCall",
+                                                "src": "1833:15:0",
+                                                "tryCall": false,
+                                                "typeDescriptions": {
+                                                    "typeIdentifier": "t_address_payable",
+                                                    "typeString": "address payable"
+                                                }
+                                            }
+                                        ],
+                                        "expression": {
+                                            "argumentTypes": [
+                                                {
+                                                    "typeIdentifier": "t_address_payable",
+                                                    "typeString": "address payable"
+                                                }
+                                            ],
+                                            "id": 128,
+                                            "name": "selfdestruct",
+                                            "nodeType": "Identifier",
+                                            "overloadedDeclarations": [],
+                                            "referencedDeclaration": 4294967275,
+                                            "src": "1820:12:0",
+                                            "typeDescriptions": {
+                                                "typeIdentifier": "t_function_selfdestruct_nonpayable$_t_address_payable_$returns$__$",
+                                                "typeString": "function (address payable)"
+                                            }
+                                        },
+                                        "id": 133,
+                                        "isConstant": false,
+                                        "isLValue": false,
+                                        "isPure": false,
+                                        "kind": "functionCall",
+                                        "lValueRequested": false,
+                                        "nameLocations": [],
+                                        "names": [],
+                                        "nodeType": "FunctionCall",
+                                        "src": "1820:29:0",
+                                        "tryCall": false,
+                                        "typeDescriptions": {
+                                            "typeIdentifier": "t_tuple$__$",
+                                            "typeString": "tuple()"
+                                        }
+                                    },
+                                    "id": 134,
+                                    "nodeType": "ExpressionStatement",
+                                    "src": "1820:29:0"
+                                }
+                            ]
+                        },
+                        "functionSelector": "0c08bf88",
+                        "id": 136,
+                        "implemented": true,
+                        "kind": "function",
+                        "modifiers": [],
+                        "name": "terminate",
+                        "nameLocation": "1716:9:0",
+                        "nodeType": "FunctionDefinition",
+                        "parameters": {
+                            "id": 118,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "1725:2:0"
+                        },
+                        "returnParameters": {
+                            "id": 119,
+                            "nodeType": "ParameterList",
+                            "parameters": [],
+                            "src": "1735:0:0"
+                        },
+                        "scope": 137,
+                        "src": "1707:149:0",
+                        "stateMutability": "nonpayable",
+                        "virtual": false,
+                        "visibility": "public"
+                    }
+                ],
+                "scope": 138,
+                "src": "70:1794:0",
+                "usedErrors": []
+            }
+        ],
+        "src": "37:1827:0"
+    },
+    "functionHashes": {
+        "PRICE()": "8d859f3e",
+        "balance(address)": "e3d670d7",
+        "mint()": "1249c58b",
+        "minter()": "07546172",
+        "terminate()": "0c08bf88",
+        "verify(uint256,uint256)": "41161b10"
+    },
+    "gasEstimates": {
+        "creation": {
+            "codeDepositCost": "151800",
+            "executionCost": "121987",
+            "totalCost": "273787"
+        },
+        "external": {
+            "PRICE()": "261",
+            "balance(address)": "2572",
+            "mint()": "24597",
+            "minter()": "2304",
+            "terminate()": "31996",
+            "verify(uint256,uint256)": "280"
+        }
+    }
+}

@@ -24,7 +24,7 @@ contract BAToken {
         uint pocID;
         address author;
         string poc;
-        string pocHash;
+        bytes32 pocHash;
         uint severity;
         string cve;
         ExploitType exploit;
@@ -32,7 +32,6 @@ contract BAToken {
         bool verified;
         address[] verifiers;
         uint[] tokens;
-        mapping(address => bool) hasVerified;
     }
 
     PoC[] public pocs;
@@ -73,9 +72,8 @@ contract BAToken {
         require((pocID >= 0 && pocID < pocs.length), "This PoC doesn't exist");
         require(pocs[pocID].verified == false, "PoC already verified");
         require(balance[msg.sender] >= verifyCost, "Not enough tokens for verify");
-        require(pocs[pocID].hasVerified[msg.sender] == false, "You already verified this PoC");
+        require(hasVerified(pocID, msg.sender) == false, "You already verified this PoC");
         
-        pocs[pocID].hasVerified[msg.sender] = true;
         pocs[pocID].verifiers.push(msg.sender);
         pocs[pocID].tokens.push(verifyCost);
         
@@ -118,6 +116,59 @@ contract BAToken {
         updateVerifyCost(initialBalance);
     }
 
+    function publish(string memory _poc, uint _severity, string memory _cve, string memory _exploit, string memory _title) public {
+        bytes32 _pocHash = keccak256(bytes(_poc));
+
+        require(checkPoCExistence(_pocHash) == false, "This PoC already exists");
+
+        address[] memory _verifiers;
+        uint[] memory _tokens;
+
+        PoC memory newPoC = PoC(
+            {
+                pocID: pocs.length-1,
+                author: msg.sender,
+                poc: _poc,
+                pocHash: _pocHash,
+                severity: _severity,
+                cve: _cve,
+                exploit: stringToExploitType[_exploit],
+                title: _title,
+                verified: false,
+                verifiers: _verifiers,
+                tokens: _tokens
+            }
+        );
+
+        pocs.push(newPoC);
+    }
+
+    function read(uint pocID) public view returns (PoC memory) {
+        require((pocID >= 0 && pocID < pocs.length), "This PoC doesn't exist");
+        PoC memory poc = pocs[pocID];
+        return poc;
+    }
+    function readAll() public view returns (PoC[] memory) {
+        return pocs;
+    }
+
+    function withdraw(uint amount) public {
+        require(msg.sender == minter, "You cannot withdraw");
+        payable(msg.sender).transfer(amount);
+    }
+
+    function terminate() public {
+        require(msg.sender == minter, "You can't terminate the contract");
+        selfdestruct(minter);
+    }
+
+    function donate(address from, address to, uint donation) public {
+        require(balance[from] >= donation, "You don't have enough tokens");
+
+        balance[from] -= donation;
+        balance[to] += donation;
+    }
+
     function updateVerifyCost(uint initialBalance) private {
         // verify cost increase proportionally to the gain of the author and verifiers
         // verifyCost = verifyCost + verifyCost*((totalBalance/initialBalance) - 1)
@@ -134,20 +185,25 @@ contract BAToken {
         verifyCost += verifyCostIncrease;
     }
 
-    // function publish(string poc, uint severity, string cve, string exploit, string title, string tag)
-    // function read(pocID)
-    // function readAll()
-    // function readAll(address author, string exploit, bool verified, uint severity)
+    function checkPoCExistence(bytes32 pocHash) private view returns (bool) {
 
-    function withdraw(uint amount) public {
-        require(msg.sender == minter, "You cannot withdraw");
-        payable(msg.sender).transfer(amount);
+        for (uint i = 0; i < pocs.length; i++) {
+            if (pocs[i].pocHash == pocHash) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    function terminate() public {
-        require(msg.sender == minter, "You can't terminate the contract");
-        selfdestruct(minter);
+    function hasVerified(uint pocID, address user) private view returns (bool) {
+        for (uint i = 0; i < pocs[pocID].verifiers.length; i++) {
+            if (pocs[pocID].verifiers[i] == user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    
 }
