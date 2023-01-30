@@ -3,14 +3,14 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 library Math {
-    function ceilDivision(uint dividend, uint divisor) pure internal returns (uint roundedQuotient) {
-        roundedQuotient = dividend/divisor;
+    function ceilDivision(uint dividend, uint divisor) pure internal returns (uint ceiledQuotient) {
+        ceiledQuotient = dividend/divisor;
         
         if (dividend%divisor > 0) {
-            roundedQuotient += 1;
+            ceiledQuotient += 1;
         }
 
-        return roundedQuotient;
+        return ceiledQuotient;
     }
 }
 
@@ -44,6 +44,7 @@ contract BAToken {
         uint pocID;
         address author;
         string poc;
+        string language;
         bytes32 pocHash;
         uint severity;
         string cve;
@@ -56,7 +57,7 @@ contract BAToken {
 
     PoC[] public pocs;
 
-    event Minted(uint tokens);
+    event Minted(uint tokens, uint newBalance);
     event Verified(uint pocID, address author, string title);
     event Published(uint pocID);
 
@@ -90,7 +91,7 @@ contract BAToken {
 
         updateVerifyCost(intialBalance);
 
-        emit Minted(tokens);
+        emit Minted(tokens, balance[msg.sender]);
     }
 
     /*
@@ -158,7 +159,7 @@ contract BAToken {
     * @param _exploit The type of exploit
     * @param _title The poc's title
     */
-    function publish(string memory _poc, uint _severity, string memory _cve, string memory _exploit, string memory _title) public {
+    function publish(string memory _poc, uint _severity, string memory _cve, string memory _exploit, string memory _title, string memory _language) public {
         // computes the poc's code hash
         bytes32 _pocHash = keccak256(bytes(_poc));
 
@@ -174,6 +175,7 @@ contract BAToken {
                 pocID: _pocID,
                 author: msg.sender,
                 poc: _poc,
+                language: _language,
                 pocHash: _pocHash,
                 severity: _severity,
                 cve: _cve,
