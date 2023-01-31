@@ -11,53 +11,77 @@
             <div class="ui cards">
                 {% for poc in pocs %}
                     <div class="card">
-                        <div class="content" onclick="$('#code').transition('slide down')">
-                            <div class="header">
-                                <!-- title -->
-                                {{ poc[8] }}
-                            </div>
-                            <div class="meta">
-                                <!-- author -->
-                                {{ poc[1] }}
-                            </div>
-                            <div class="description">
-                                <div class="ui list">
-                                    <div class="item">
-                                        <i class="user circle icon"></i>
-                                    <div class="content">
-                                        <!-- author -->
-                                        <b>Author:</b>
-                                        {{ poc[1] }}
-                                    </div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="bug icon"></i>
-                                    <div class="content">
-                                        <!-- CVE -->
-                                        <b>CVE:</b> {{ poc[6] }}
-                                    </div>
-                                    </div>
-                                    <div class="item">
-                                    <i class="tag icon"></i>
-                                    <div class="content">
-                                        <!-- Exploit type -->
-                                        <b>Type:</b> {{ poc[7] }}
-                                    </div>
-                                    </div>
-                                    <div class="item">
-                                        <i class="check circle icon"></i>
+                        <div class="content">
+                                <div class="header">
+                                    <!-- title -->
+                                    {{ poc[8] }}
+                                </div>
+                                <div class="description">
+                                    <div class="ui list">
+                                        <div class="item">
+                                            <i class="user circle icon"></i>
                                         <div class="content">
-                                            <!-- Verified -->
-                                            {% if poc[9] %}
-                                                <b>Verified: yes </b>
-                                            {%  else %}
-                                                <b>Verified: no</b>
-                                            {% endif %} 
+                                            <!-- author -->
+                                            <b>Author:</b>
+                                            {{ poc[1] }}
                                         </div>
+                                        </div>
+                                        <div class="item">
+                                            <i class="bug icon"></i>
+                                        <div class="content">
+                                            <!-- CVE -->
+                                            <b>CVE:</b> {{ poc[6] }}
+                                        </div>
+                                        </div>
+                                        <div class="item">
+                                            <i class="tag icon"></i>
+                                            <div class="content">
+                                                <!-- Exploit type -->
+                                                <b>Type:</b> {{ poc[7] }}
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="exclamation circle icon"></i>
+                                            <div class="content">
+                                                <!-- Severity -->
+                                                <b>Severity:</b> {{ poc[5] }}
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="check circle icon"></i>
+                                            <div class="content">
+                                                <!-- Verified -->
+                                                {% if poc[9] %}
+                                                    <b>Verified:</b> yes
+                                                {%  else %}
+                                                    <b>Verified:</b> no
+                                                {% endif %} 
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <i class="code icon"></i>
+                                            <div class="content">
+                                                <!-- language -->
+                                                <b>Language:</b> {{ poc[3] }}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="ui divider"></div>
+
+                                        <div class="item" style="cursor:pointer;" onclick="return viewCode('{{ poc[0] }}');">
+                                            <i class="chevron down icon code-arrow" id="code-arrow-{{ poc[0] }}"></i>
+                                            <div class="content">
+                                                <!-- Code -->
+                                                <b>Code</b>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </div>
-                            <div class="description code transition hidden" id="code">
+                            <div class="description code transition hidden" id="code-{{ poc[0]}}">
                                 <pre><code class="{{ poc[3] }}">
 {{ poc[2] | base64_decode }}
                                 </code></pre>
@@ -77,6 +101,13 @@
     <script>
         $('#home').addClass('active')
         $('.ui.dropdown').dropdown();
+    </script>
+
+    <script>
+        function viewCode(pocid) {
+            $('#code-'+pocid).transition('slide down')
+            $("#code-arrow-"+pocid).toggleClass('flip');
+        }
     </script>
 </body>
 </html>
