@@ -1,25 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batman</title>
-</head>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='semantic/semantic.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="{{ url_for('static', filename='semantic/semantic.min.js') }}"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-<!-- and it's easy to individually load additional languages -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/go.min.js"></script>
-
+{% include 'head.html' %}
 <script>
     hljs.initHighlightingOnLoad();
     // web3.js request all PoCs using logged in account's address
@@ -27,74 +6,77 @@
 
 <body>
     <div class="ui container">
-        <div>
-            <!-- form container -->
-        </div>
+        {% include 'nav.html' %}
         <div>
             <div class="ui cards">
-                <div class="card">
-                    <div class="content" onclick="$('#code').transition('slide down')">
-                        <div class="header">
-                        SmartRG Router SR510n 2.6.13 - Remote Code Execution
-                        </div>
-                        <div class="meta">
-                        Yerodin Richards
-                        </div>
-                        <div class="description">
-                            <div class="ui list">
-                                <div class="item">
-                                    <i class="user circle icon"></i>
-                                  <div class="content">
-                                    <b>Author:</b> Yerodin Richards
-                                  </div>
-                                </div>
-                                <div class="item">
-                                    <i class="bug icon"></i>
-                                  <div class="content">
-                                    <b>CVE:</b> 2022-37661
-                                  </div>
-                                </div>
-                                <div class="item">
-                                  <i class="tag icon"></i>
-                                  <div class="content">
-                                    <b>Type:</b> remote
-                                  </div>
-                                </div>
-                                <div class="item">
-                                    <i class="check circle icon"></i>
+                {% for poc in pocs %}
+                    <div class="card">
+                        <div class="content" onclick="$('#code').transition('slide down')">
+                            <div class="header">
+                                <!-- title -->
+                                {{ poc[8] }}
+                            </div>
+                            <div class="meta">
+                                <!-- author -->
+                                {{ poc[1] }}
+                            </div>
+                            <div class="description">
+                                <div class="ui list">
+                                    <div class="item">
+                                        <i class="user circle icon"></i>
                                     <div class="content">
-                                      <b>Verified:</b> yes
+                                        <!-- author -->
+                                        <b>Author:</b>
+                                        {{ poc[1] }}
+                                    </div>
+                                    </div>
+                                    <div class="item">
+                                        <i class="bug icon"></i>
+                                    <div class="content">
+                                        <!-- CVE -->
+                                        <b>CVE:</b> {{ poc[6] }}
+                                    </div>
+                                    </div>
+                                    <div class="item">
+                                    <i class="tag icon"></i>
+                                    <div class="content">
+                                        <!-- Exploit type -->
+                                        <b>Type:</b> {{ poc[7] }}
+                                    </div>
+                                    </div>
+                                    <div class="item">
+                                        <i class="check circle icon"></i>
+                                        <div class="content">
+                                            <!-- Verified -->
+                                            {% if poc[9] %}
+                                                <b>Verified: yes </b>
+                                            {%  else %}
+                                                <b>Verified: no</b>
+                                            {% endif %} 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="description code transition hidden" id="code">
+                                <pre><code class="{{ poc[3] }}">
+{{ poc[2] | base64_decode }}
+                                </code></pre>
+                            </div>
                         </div>
-                        <div class="description code transition hidden" id="code">
-                            <pre><code class="bash">
-#!/bin/bash
-
-# test
-echo 'hello there'
-echo 'hello there'
-echo 'hello there'
-echo 'hello there'
-echo 'hello there'
-echo 'hello there'
-echo 'hello there'
-echo 'hello there'
-echo 'hello there'
-                            </code></pre>
+                        <div class="extra content">
+                            <div class="ui two buttons">
+                                <div class="ui basic green button"> <i class="check circle icon"></i> Verify</div>
+                                <div class="ui basic green button"><i class="ethereum icon"></i> Donate</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="extra content">
-                        <div class="ui two buttons">
-                            <div class="ui basic green button"> <i class="check circle icon"></i> Verify</div>
-                            <div class="ui basic green button"><i class="ethereum icon"></i> Donate</div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    
+    <script>
+        $('#home').addClass('active')
+        $('.ui.dropdown').dropdown();
+    </script>
 </body>
 </html>

@@ -1,0 +1,82 @@
+{% include 'head.html' %}
+
+<body>
+    <div class="ui container">
+        {% include 'nav.html' %}
+        <div>
+            <!-- form container -->
+            <form action="" method="GET">
+                <div class="ui form">
+                    <div class="fields" style="justify-content: space-between;">
+                        <div class="field">
+                            <label>Title</label>
+                            <input type="text" placeholder="title">
+                            <div data-lastpass-icon-root="true" style="position: relative !important; height: 0px !important; width: 0px !important; float: left !important;"></div></div>
+                        <div class="field">
+                            <label>CVE</label>
+                            <input type="text" placeholder="CVE">
+                        </div>
+                        <div class="field">
+                            <label>Type</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="type">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Type</div>
+                                <div class="menu">
+                                    <div class="item" data-value="Local">Local</div>
+                                    <div class="item" data-value="Remote">Remote</div>
+                                    <div class="item" data-value="DOS">DOS</div>
+                                    <div class="item" data-value="Webapp">Webapp</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Severity</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" name="severity">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Severity</div>
+                                <div class="menu">
+                                  <div class="item" data-value="1">1</div>
+                                  <div class="item" data-value="2">2</div>
+                                  <div class="item" data-value="3">3</div>
+                                  <div class="item" data-value="4">4</div>
+                                  <div class="item" data-value="5">5</div>
+                                  <div class="item" data-value="6">6</div>
+                                  <div class="item" data-value="7">7</div>
+                                  <div class="item" data-value="8">8</div>
+                                  <div class="item" data-value="9">9</div>
+                                  <div class="item" data-value="10">10</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Language</label>
+                            <div class="ui selection dropdown">
+                                <input type="hidden" id="language" name="language">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Language</div>
+                                <div class="menu">
+                                    <div class="item" data-value="bash">Bash</div>
+                                    <div class="item" data-value="python">Python</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>PoC's code</label>
+                        <textarea></textarea>
+                    </div>
+                    <button type="submit" class="ui primary button">
+                        Publish
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        $('#publish').addClass('active')
+        $('.ui.dropdown').dropdown();
+    </script>
+</body>
+</html>
