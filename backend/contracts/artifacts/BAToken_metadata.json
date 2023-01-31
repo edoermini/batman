@@ -1,0 +1,474 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "tokens",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "newBalance",
+						"type": "uint256"
+					}
+				],
+				"name": "Minted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "pocID",
+						"type": "uint256"
+					}
+				],
+				"name": "Published",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "pocID",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "author",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					}
+				],
+				"name": "Verified",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "PRICE",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "balance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "donate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "pocs",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "pocID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "author",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "poc",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "language",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "pocHash",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "severity",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "cve",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "exploitType",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "verified",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_poc",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_severity",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_cve",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_type",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_title",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_language",
+						"type": "string"
+					}
+				],
+				"name": "publish",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "pocID",
+						"type": "uint256"
+					}
+				],
+				"name": "read",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "pocID",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "author",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "poc",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "language",
+								"type": "string"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "pocHash",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "uint256",
+								"name": "severity",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "cve",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "exploitType",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "verified",
+								"type": "bool"
+							},
+							{
+								"internalType": "address[]",
+								"name": "verifiers",
+								"type": "address[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "tokens",
+								"type": "uint256[]"
+							}
+						],
+						"internalType": "struct BAToken.PoC",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "readAll",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "pocID",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "author",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "poc",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "language",
+								"type": "string"
+							},
+							{
+								"internalType": "bytes32",
+								"name": "pocHash",
+								"type": "bytes32"
+							},
+							{
+								"internalType": "uint256",
+								"name": "severity",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "cve",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "exploitType",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "title",
+								"type": "string"
+							},
+							{
+								"internalType": "bool",
+								"name": "verified",
+								"type": "bool"
+							},
+							{
+								"internalType": "address[]",
+								"name": "verifiers",
+								"type": "address[]"
+							},
+							{
+								"internalType": "uint256[]",
+								"name": "tokens",
+								"type": "uint256[]"
+							}
+						],
+						"internalType": "struct BAToken.PoC[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "terminate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "pocID",
+						"type": "uint256"
+					}
+				],
+				"name": "verify",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "verifyCost",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"Users/edoardo/Documents/sviluppo/batman/backend/contracts/BAToken.sol": "BAToken"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"Users/edoardo/Documents/sviluppo/batman/backend/contracts/BAToken.sol": {
+			"keccak256": "0x108b10795afa20d8f29591d3e485de0c37edb237a9ff870708701fa701f67845",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://91c8172cde165825d6fe0a234179682955aa2efee24666adb51adb71ba18ab85",
+				"dweb:/ipfs/QmdRardpFgDKRxoXcsEydRpCt8cWYkxwSL7j75qgdv44KA"
+			]
+		}
+	},
+	"version": 1
+}

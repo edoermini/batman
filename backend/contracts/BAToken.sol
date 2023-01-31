@@ -3,7 +3,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 library Math {
-    function ceilDivision(uint dividend, uint divisor) pure internal returns (uint ceiledQuotient) {
+    function ceilDivision(uint dividend, uint divisor) internal pure returns (uint ceiledQuotient) {
         ceiledQuotient = dividend/divisor;
         
         if (dividend%divisor > 0) {
@@ -31,14 +31,7 @@ contract BAToken {
     uint totalAddresses;
     uint totalBalance;
 
-    enum ExploitType {
-        DOS,
-        Local,
-        Remote,
-        Webapp
-    }
-
-    mapping(string => ExploitType) stringToExploitType;
+    mapping(string => bool) exploitTypes;
 
     struct PoC {
         uint pocID;
@@ -48,7 +41,7 @@ contract BAToken {
         bytes32 pocHash;
         uint severity;
         string cve;
-        ExploitType exploit;
+        string exploitType;
         string title;
         bool verified;
         address[] verifiers;
@@ -66,10 +59,10 @@ contract BAToken {
         totalAddresses = 0;
         totalBalance = 0;
         verifyCost = 10;
-        stringToExploitType["DOS"] = ExploitType.DOS;
-        stringToExploitType["Local"] = ExploitType.Local;
-        stringToExploitType["Remote"] = ExploitType.Remote;
-        stringToExploitType["Webapp"] = ExploitType.Webapp;
+        exploitTypes["DOS"] = true;
+        exploitTypes["Local"] = true;
+        exploitTypes["Remote"] = true;
+        exploitTypes["Webapp"] = true;
     }
 
     /*
@@ -159,7 +152,9 @@ contract BAToken {
     * @param _exploit The type of exploit
     * @param _title The poc's title
     */
-    function publish(string memory _poc, uint _severity, string memory _cve, string memory _exploit, string memory _title, string memory _language) public {
+    function publish(string memory _poc, uint _severity, string memory _cve, string memory _type, string memory _title, string memory _language) public {
+        require(exploitTypes[_type] == true, "_exploit must be one among: Remote, Local, DOS or Webapp");
+
         // computes the poc's code hash
         bytes32 _pocHash = keccak256(bytes(_poc));
 
@@ -167,7 +162,7 @@ contract BAToken {
 
         address[] memory _verifiers;
         uint[] memory _tokens;
-        uint _pocID = pocs.length-1;
+        uint _pocID = pocs.length;
 
         // creates the new PoC entry
         PoC memory newPoC = PoC(
@@ -179,7 +174,7 @@ contract BAToken {
                 pocHash: _pocHash,
                 severity: _severity,
                 cve: _cve,
-                exploit: stringToExploitType[_exploit],
+                exploitType: _type,
                 title: _title,
                 verified: false,
                 verifiers: _verifiers,
@@ -245,6 +240,10 @@ contract BAToken {
     */
     function updateVerifyCost(uint initialBalance) private {
         // verifyCost = verifyCost + verifyCost*((totalBalance/initialBalance) - 1)
+
+        if (initialBalance == 0) {
+            return;
+        }
 
         uint x = totalBalance * verifyCost;
         uint y = Math.ceilDivision(x, initialBalance);
