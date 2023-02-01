@@ -1,13 +1,27 @@
-<div class="ui secondary pointing menu" id="navbar">
+<div class="ui menu sticky-nav" id="navbar">
     <a class="item" id="home" href="/">
-        Home
+        PoCs
     </a>
     <a class="item" id="publish" href="/publish">
         Publish
     </a>
     <div class="right menu">
+        <div class="ui item">
+            <i class="check circle icon"></i>
+            <b>Verify Cost: </b> 
+            <span style="margin-left: 5px;" id="verify-cost">10</span>
+        </div>
+
+        <div class="ui item">
+            <i class="ethereum icon"></i> 
+            <b>Balance: </b> 
+            <span style="margin-left: 5px;">{{ balance }}</span>
+        </div>
+
+        <div class="vertical divider"></div>
+        
         <a class="ui item" href="/logout">
-            Logout
+            <i class="sign-out icon"></i> Logout
         </a>
     </div>
 </div>

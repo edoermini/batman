@@ -1,12 +1,13 @@
 {% include 'head.html' %}
+
 <script>
     hljs.initHighlightingOnLoad();
     // web3.js request all PoCs using logged in account's address
 </script>
 
 <body>
+    {% include 'nav.html' %}
     <div class="ui container">
-        {% include 'nav.html' %}
         <div>
             <div class="ui cards">
                 {% for poc in pocs %}

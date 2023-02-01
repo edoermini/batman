@@ -10,3 +10,15 @@
 .flip {
     transform: rotate(-180deg);
 }
+
+.container {
+    padding-top: 54px !important;
+}
+
+.sticky-nav {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    width: 100%;
+    left: 0;
+}
