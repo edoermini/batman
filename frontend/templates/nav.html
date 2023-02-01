@@ -15,13 +15,46 @@
         <div class="ui item">
             <i class="ethereum icon"></i> 
             <b>Balance: </b> 
-            <span style="margin-left: 5px;">{{ balance }}</span>
+            <span style="margin-left: 5px;" id="balance">{{ balance }}</span>
         </div>
 
-        <div class="vertical divider"></div>
-        
-        <a class="ui item" href="/logout">
-            <i class="sign-out icon"></i> Logout
-        </a>
+        <div class="ui right dropdown item">
+            <i class="user circle icon"></i>
+            <b>{{username}}</b>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="item">
+                    <a href="/logout" style="color: inherit;">
+                        <i class="sign-out icon"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(
+        function verifyCostUpdate() {
+            // ajax request to blockchain
+            console.log("{{address}}")
+            var verifyCost = Math.round(Math.random()*100)
+            $('#verify-cost').text(verifyCost)
+
+            setTimeout(verifyCostUpdate, 1000);
+        }
+    )
+
+    $(document).ready(
+        function balanceUpdate() {
+            // ajax request to blockchain
+            console.log("{{address}}")
+            var balance = Math.round(Math.random()*100)
+            $('#balance').text(balance)
+
+            setTimeout(balanceUpdate, 1000);
+        }
+    )
+
+
+</script>
