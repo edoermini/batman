@@ -94,7 +94,9 @@ def login():
 @flask_login.login_required
 def publish():
     balance = 10
-    return render_template("publish.html", balance=balance)
+    username=flask_login.current_user.id
+    
+    return render_template("publish.html", balance=balance, username=username)
 
 @app.route('/')
 @flask_login.login_required
