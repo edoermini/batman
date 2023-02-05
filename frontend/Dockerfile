@@ -5,7 +5,7 @@ RUN pip install -r /requirements.txt
 
 ADD wait-for-deploy.py /
 
-ENV FLASK_APP batoken.py
+ENV FLASK_APP app.py
 WORKDIR /project
 ADD ./app/ /project
 
