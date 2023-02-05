@@ -4,13 +4,16 @@ import string
 import secrets
 from random_username.generate import generate_username
 
-ABI = ""
+ABI = []
+CONTRACT_ADDRESS = ""
 ADDRESSES = []
 PRIVATE_KEYS = {}
 USERS = []
 
-with open(os.environ.get('ABI'), 'r') as abi_file:
-    ABI = json.load(abi_file)
+with open(os.environ.get('BUILD'), 'r') as build_file:
+    build = json.load(build_file)
+    ABI = build["abi"]
+    CONTRACT_ADDRESS = build['networks'][list(build['networks'].keys())[0]]['address']
 
 with open(os.environ.get('ACCOUNTS'), 'r') as addresses_file:
     addresses = json.load(addresses_file)
@@ -25,8 +28,6 @@ def _generate_password(length: int):
     return password
 
 USERS = {username: {"password": _generate_password(10)} for username in generate_username(len(ADDRESSES))}
-
-print(json.dumps(USERS, indent=4))
 
 with open(os.path.join(os.environ.get("DB_DIR"), "db.json"), "w") as db_file:
     json.dump(USERS, fp=db_file, indent=4)

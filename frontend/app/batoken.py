@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, request, session, render_template
 import flask_login
 import base64
 
-from costants import USERS
+from costants import USERS, CONTRACT_ADDRESS, ABI, ADDRESSES
 
 app = Flask(__name__)
 app.secret_key = 'super secret string'  # Change this!

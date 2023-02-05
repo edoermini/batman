@@ -14,19 +14,12 @@ FROM base as truffle
 RUN mkdir -p /home/app
 WORKDIR /home/app
 
-COPY package.json /home/app
-COPY package-lock.json /home/app
-
-RUN npm install --quiet
-
 COPY truffle-config.js /home/app
 COPY contracts /home/app/contracts
 COPY migrations /home/app/migrations/
 COPY test /home/app/test/
 
-RUN truffle compile
-
-CMD ["truffle", "migrate", "--network", "development"]
+CMD ["truffle", "deploy", "--reset"]
 
 FROM base as ganache
 

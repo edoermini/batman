@@ -6,12 +6,14 @@ services:
     build:
       context: ./contract
       target: truffle
+    working_dir: /home/app
+    command: bash -c "rm -rf build/contracts/* && truffle deploy --reset"
     depends_on:
       - ganache
     networks:
       - backend
     volumes:
-      - ${PWD}/shared/truffle:/home/app/build/contracts/
+      - ${PWD}/shared/truffle:/home/app/build/contracts/:rw
       - /home/app/node_modules
 
   ganache:
@@ -21,21 +23,24 @@ services:
     ports:
       - 8545:8545
     volumes:
-      - ${PWD}/shared/ganache/:/home/shared/
+      - ${PWD}/shared/ganache/:/home/shared/:rw
     networks:
       - backend
 
   frontend:
     build:
       context: frontend
+    working_dir: /project
+    command: bash -c "python /wait-for-deploy.py && flask run --host=0.0.0.0"
     ports:
       - "5000:5000"
     volumes:
-      - ${PWD}/shared/:/project/blockchain_conf
-      - ${PWD}/database/:/project/database
+      - ${PWD}/shared/:/project/blockchain_conf:ro
+      - ${PWD}/database/:/project/database:rw
     depends_on:
       - ganache
       - truffle
+
 volumes:
   blockchain_files:
 

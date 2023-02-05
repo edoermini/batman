@@ -43,11 +43,14 @@
 
     var contractABI = "{{contract_abi}}"
     var contractAddress = "{{contract_address}}"
+    var senderAddress = "{{sender_address}}"
+
+    var contract = new web3.eth.Contract(contractABI, contractAddress)
 
     $(document).ready(
         function verifyCostUpdate() {
             console.log("{{address}}")
-            var verifyCost = Math.round(Math.random()*100)
+            var verifyCost = contract.methods.verifyCost.call()
             $('#verify-cost').text(verifyCost)
 
             setTimeout(verifyCostUpdate, 1000);
