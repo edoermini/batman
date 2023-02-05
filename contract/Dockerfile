@@ -24,6 +24,8 @@ COPY contracts /home/app/contracts
 COPY migrations /home/app/migrations/
 COPY test /home/app/test/
 
+RUN truffle compile
+
 CMD ["truffle", "migrate", "--network", "development"]
 
 FROM base as ganache
@@ -32,4 +34,7 @@ RUN mkdir -p /home
 WORKDIR /home
 EXPOSE 8545
 
-ENTRYPOINT ["ganache", "--wallet.accountKeysPath", "accounts.json"]
+RUN mkdir -p shared
+RUN touch shared/addresses.json
+
+ENTRYPOINT ["ganache", "-h", "0.0.0.0", "--wallet.accountKeysPath", "shared/addresses.json"]

@@ -1,0 +1,1 @@
+Contains the generated db.json file with all users and password

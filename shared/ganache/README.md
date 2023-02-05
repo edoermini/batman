@@ -1,0 +1,1 @@
+Contains all the generated addresses and the relative private keys

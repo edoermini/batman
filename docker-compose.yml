@@ -1,0 +1,44 @@
+version: "3.4"
+
+services:
+
+  truffle:
+    build:
+      context: ./contract
+      target: truffle
+    depends_on:
+      - ganache
+    networks:
+      - backend
+    volumes:
+      - ${PWD}/shared/truffle:/home/app/build/contracts/
+      - /home/app/node_modules
+
+  ganache:
+    build:
+      context: ./contract
+      target: ganache
+    ports:
+      - 8545:8545
+    volumes:
+      - ${PWD}/shared/ganache/:/home/shared/
+    networks:
+      - backend
+
+  frontend:
+    build:
+      context: frontend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ${PWD}/shared/:/project/blockchain_conf
+      - ${PWD}/database/:/project/database
+    depends_on:
+      - ganache
+      - truffle
+volumes:
+  blockchain_files:
+
+networks:
+  backend:
+    driver: "bridge"

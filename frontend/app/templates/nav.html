@@ -34,9 +34,18 @@
 </div>
 
 <script>
+
+    if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider)
+    } else {
+        web3 = new Web3(new Web3.providers.HttpProvider('http://ganache:8545'))
+    }
+
+    var contractABI = "{{contract_abi}}"
+    var contractAddress = "{{contract_address}}"
+
     $(document).ready(
         function verifyCostUpdate() {
-            // ajax request to blockchain
             console.log("{{address}}")
             var verifyCost = Math.round(Math.random()*100)
             $('#verify-cost').text(verifyCost)
