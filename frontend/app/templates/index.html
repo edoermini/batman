@@ -90,14 +90,30 @@
                         </div>
                         <div class="extra content">
                             <div class="ui buttons" style="width: 100%;">
-                                <div class="ui green button"> <i class="check circle icon"></i> Verify</div>
+                                {% if poc[9] or user_address in poc[10] %}
+                                <div class="ui green disabled button" id="verify_btn_{{poc[0]}}"> <i class="check circle icon"></i> Verify</div>
+                                {% else  %}
+                                <div class="ui green button" id="verify_btn_{{poc[0]}}" onclick='return verifyRequest({{poc[0]}})'> <i class="check circle icon"></i> Verify</div>
+                                {% endif %}
                                 <div class="or"></div>
-                                <div class="ui button"><i class="ethereum icon"></i> Donate</div>
+                                <div class="ui button" id="donate_btn"><i class="ethereum icon"></i> Donate</div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
+        </div>
+    </div>
+    <div class="ui mini modal">
+        <div class="header">
+            <span id="modal_status"></span>
+        </div>
+        <div class="content" id="modal_message">
+        </div>
+        <div class="actions">
+            <div class="ui ok button" onclick="window.location.reload();">
+              <i class="checkmark icon"></i>
+              Ok
         </div>
     </div>
     <script>
@@ -106,9 +122,32 @@
     </script>
 
     <script>
-        function viewCode(pocid) {
-            $('#code-'+pocid).transition('slide down')
-            $("#code-arrow-"+pocid).toggleClass('flip');
+        function viewCode(poc_id) {
+            $('#code-'+poc_id).transition('slide down')
+            $("#code-arrow-"+poc_id).toggleClass('flip');
+        }
+    </script>
+
+    <script>
+        function verifyRequest(poc_id) {
+            $.ajax({
+                url: "/verify",
+                type: "post",
+                data: {
+                    pocid: poc_id,
+                },
+                success: function(response) {
+                    if (response.error) {
+                        $("#modal_status").text("Verify failed")
+                    } else {
+                        $("#modal_status").text("Verify successful")
+                        $("#verify_btn_"+poc_id).addClass('disabled')
+                    }
+                    $("#modal_message").text(response.message)
+                    $('.ui.mini.modal').modal('show');
+                },
+            });
+            return true;
         }
     </script>
 </body>

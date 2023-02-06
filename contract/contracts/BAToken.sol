@@ -225,10 +225,10 @@ contract BAToken {
     * @param to The recipient of the donation
     * @param amount The amount of tokens to transfer
     */
-    function donate(address from, address to, uint amount) public {
-        require(balance[from] >= amount, "You don't have enough tokens");
+    function donate(address to, uint amount) public {
+        require(balance[msg.sender] >= amount, "You don't have enough tokens");
 
-        balance[from] -= amount;
+        balance[msg.sender] -= amount;
         balance[to] += amount;
     }
     

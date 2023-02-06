@@ -66,6 +66,7 @@ def publish():
     if request.method == 'GET':
         return render_template("publish.html", contract_abi=ABI, contract_address=CONTRACT_ADDRESS, user_address=USERS[username]['address'], username=username)
     
+    # ajax request
     title = request.form['title']
     cve = request.form['cve']
     type = request.form['type']
@@ -73,9 +74,12 @@ def publish():
     language = request.form['language']
     poc = request.form['poc']
 
-
-    batoken.publish(USERS[username]['address'], poc, severity, cve, type, title, language)
-    return "success lksadjlk"
+    try:
+        batoken.publish(USERS[username]['address'], poc, severity, cve, type, title, language)
+    except Exception as msg:
+        return {"error":True, "message":str(msg).split(" revert ")[1]}
+    
+    return {"error":False, "message":"Poc successfully published"}
 
 
 @app.route('/')
@@ -105,3 +109,19 @@ def mint():
     batoken.mint(USERS[username]['address'], value)
 
     return redirect(url_for("mint"))
+
+@app.route("/verify", methods=['POST'])
+@flask_login.login_required
+def ajax_verify():
+    username=flask_login.current_user.id
+
+    if request.method == 'POST':
+        poc_id = request.form['pocid']
+        try:
+            batoken.verify(USERS[username]['address'], poc_id)
+        except Exception as msg:
+            return {"error":True, "message":str(msg).split(" revert ")[1]}
+        
+        return {"error":False, "message":"Poc successfully verified"}
+    
+    return redirect(url_for('index'))

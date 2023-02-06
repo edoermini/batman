@@ -295,6 +295,18 @@
             </form>
         </div>
     </div>
+    <div class="ui mini modal">        
+        <div class="header">
+            <span id="modal_status"></span>
+        </div>
+        <div class="content" id="modal_message">
+        </div>
+        <div class="actions">
+            <div class="ui ok button">
+              <i class="checkmark icon"></i>
+              Ok
+        </div>
+    </div>
 
     <script>
         var editor = ace.edit("editor");
@@ -325,6 +337,14 @@
     </script>
 
     <script>
+        $('.message .close')
+        .on('click', function() {
+            $(this)
+            .closest('.message')
+            .transition('fade')
+            ;
+        });
+
         $(document).ready(function() {
             $("#publish_form").on('submit', (function(e) {
                 e.preventDefault();
@@ -339,13 +359,19 @@
                         language: $('#language').val(),
                         poc: editor.getValue()
                     },
-                    success: function(data) {
-                        console.log(data)
-                    }
+                    success: function(response) {
+                        if (response.error) {
+                            $("#modal_status").text("Publish failed")
+                        } else {
+                            $("#modal_status").text("Publish successful")
+                        }
+                        $("#modal_message").text(response.message)
+                        $('.ui.mini.modal').modal('show');
+                    },
                 });
                 return false;
             }));
-    });
+        });
     </script>
 </body>
 </html>
