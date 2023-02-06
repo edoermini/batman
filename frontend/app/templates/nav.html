@@ -11,7 +11,7 @@
             <b>Verify Cost: </b> 
             <span style="margin-left: 5px;" id="verify-cost"></span>
         </div>
-        <a class="item" id="publish" href="/mint">
+        <a class="item" href="javascript:void(0)" onclick="$('#mint_modal').modal('show')">
             <i class="ethereum icon"></i> 
             <b>Balance: </b> 
             <span style="margin-left: 5px;" id="balance"></span>
@@ -20,13 +20,47 @@
             <i class="user circle icon"></i>
             <b>{{username}}</b>
             <i class="dropdown icon"></i>
-            <div class="menu">
+            <div class="menu transition hidden">
                 <div class="item">
                     <a href="/logout" style="color: inherit;">
                         <i class="sign-out icon"></i> Logout
                     </a>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="ui modal" id="mint_modal">        
+    <div class="header">
+        Buy BATokens
+    </div>
+    <div class="content">
+        <p>A BAToken costs 0.002 <i class="ethereum icon"></i></p>
+        <form class="ui form segment" action="javascript:void(0)" method="">
+            <div class="field">
+                <label>Value</label>
+                <input type="number" name="amount" id="mint_amount" step="0.001" placeholder="Amount">
+            </div>
+            <button class="ui primary button login-btn" onclick="return mint($('#mint_amount').val())">Buy</button>
+        </form>
+    </div>
+    <div class="actions">
+        <div class="ui basic cancel button">
+          <i class="remove icon"></i>
+          Close
+        </div>
+      </div>
+</div>
+<div class="ui mini modal" id="balance_message_modal">
+    <div class="header">
+        <span id="balance_modal_status"></span>
+    </div>
+    <div class="content" id="balance_modal_message">
+    </div>
+    <div class="actions">
+        <div class="ui ok button">
+          <i class="checkmark icon"></i>
+          Ok
         </div>
     </div>
 </div>
@@ -64,6 +98,25 @@
             setTimeout(balanceUpdate, 500);
         }
     )
-
+    
+    function mint(amount) {
+        $.ajax({
+            url: "/mint",
+            type: "post",
+            data: {
+                amount: amount,
+            },
+            success: function(response) {
+                if (response.error) {
+                    $("#balance_modal_status").text("Purchase failed")
+                } else {
+                    $("#balance_modal_status").text("Purchase successful")
+                }
+                $("#balance_modal_message").text(response.message)
+                $('#balance_message_modal').modal('show');
+            },
+        });
+        return true;
+    }
 
 </script>

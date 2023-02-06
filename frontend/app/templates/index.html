@@ -96,7 +96,7 @@
                                 <div class="ui green button" id="verify_btn_{{poc[0]}}" onclick='return verifyRequest({{poc[0]}})'> <i class="check circle icon"></i> Verify</div>
                                 {% endif %}
                                 <div class="or"></div>
-                                <div class="ui button" id="donate_btn"><i class="ethereum icon"></i> Donate</div>
+                                <div class="ui button" id="donate_btn" onclick="return show_donate_modal('{{poc[1]}}')"><i class="ethereum icon"></i> Donate</div>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
             </div>
         </div>
     </div>
-    <div class="ui mini modal">
+    <div class="ui mini modal" id="verify_modal">
         <div class="header">
             <span id="modal_status"></span>
         </div>
@@ -116,19 +116,51 @@
               Ok
         </div>
     </div>
+
+    <div class="ui modal" id="donate_modal">        
+        <div class="header"id="donate_modal_header">
+            Make a donation to <span id="recipient"></span>
+        </div>
+        <div class="content">
+            <form class="ui form segment" action="javascript:void(0)" method="">
+                <div class="field">
+                    <label>Amount</label>
+                    <input type="number" name="amount" id="donation_amount" placeholder="Amount">
+                </div>
+                <button class="ui primary button login-btn" onclick="return donate($('#donation_amount').val())">Donate</button>
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui basic cancel button">
+              <i class="remove icon"></i>
+              Close
+            </div>
+        </div>
+    </div>
+
+    <div class="ui mini modal" id="donate_result_modal">
+        <div class="header">
+            <span id="donate_result_status"></span>
+        </div>
+        <div class="content" id="donate_result_message">
+        </div>
+        <div class="actions">
+            <div class="ui ok button">
+              <i class="checkmark icon"></i>
+              Ok
+            </div>
+        </div>
+    </div>
+
     <script>
         $('#home').addClass('active')
         $('.ui.dropdown').dropdown();
-    </script>
 
-    <script>
         function viewCode(poc_id) {
             $('#code-'+poc_id).transition('slide down')
             $("#code-arrow-"+poc_id).toggleClass('flip');
         }
-    </script>
 
-    <script>
         function verifyRequest(poc_id) {
             $.ajax({
                 url: "/verify",
@@ -144,7 +176,33 @@
                         $("#verify_btn_"+poc_id).addClass('disabled')
                     }
                     $("#modal_message").text(response.message)
-                    $('.ui.mini.modal').modal('show');
+                    $('#verify_modal').modal('show');
+                },
+            });
+            return true;
+        }
+
+        function show_donate_modal(recipient) {
+            $('#recipient').text(recipient)
+            $('#donate_modal').modal('show')
+        }
+
+        function donate(amount) {
+            $.ajax({
+                url: "/donate",
+                type: "post",
+                data: {
+                    amount: amount,
+                    recipient: $("#recipient").text()
+                },
+                success: function(response) {
+                    if (response.error) {
+                        $("#donate_result_status").text("Donation failed")
+                    } else {
+                        $("#donate_result_status").text("Donation successful")
+                    }
+                    $("#donate_result_message").text(response.message)
+                    $('#donate_result_modal').modal('show');
                 },
             });
             return true;

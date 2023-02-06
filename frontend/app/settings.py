@@ -9,6 +9,7 @@ CONTRACT_ADDRESS = ""
 ADDRESSES = []
 PRIVATE_KEYS = {}
 USERS = {}
+ADDRESS_TO_USER = {}
 
 with open(os.environ.get('BUILD'), 'r') as build_file:
     build = json.load(build_file)
@@ -28,6 +29,9 @@ def _generate_password(length: int):
     return password
 
 USERS = {username: {"password": _generate_password(10), "address":ADDRESSES[i]} for i, username in enumerate(generate_username(len(ADDRESSES)))}
+
+for user in USERS:
+    ADDRESS_TO_USER[USERS[user]['address']] = user
 
 with open(os.path.join(os.environ.get("DB_DIR"), "db.json"), "w") as db_file:
     json.dump(USERS, fp=db_file, indent=4)

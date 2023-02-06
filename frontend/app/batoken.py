@@ -37,4 +37,12 @@ class BAToken:
         })
         signed_txn = self.w3.eth.account.signTransaction(transaction, private_key=self.private_keys[sender_address])
         self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
+    
+    def donate(self, sender_address : str, recipient: str, amount: int):
+        transaction = self.contract.functions.donate(web3.Web3.toChecksumAddress(recipient), int(amount)).buildTransaction({
+            "from":web3.Web3.toChecksumAddress(sender_address),
+            "nonce":self.w3.eth.get_transaction_count(web3.Web3.toChecksumAddress(sender_address))
+        })
+        signed_txn = self.w3.eth.account.signTransaction(transaction, private_key=self.private_keys[sender_address])
+        self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
 

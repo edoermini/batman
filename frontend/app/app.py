@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, request, session, render_template
 import flask_login
 import base64
 
-from settings import USERS, CONTRACT_ADDRESS, ABI, PRIVATE_KEYS
+from settings import ADDRESS_TO_USER, USERS, CONTRACT_ADDRESS, ABI, PRIVATE_KEYS
 from batoken import BAToken
 
 batoken = BAToken(CONTRACT_ADDRESS, os.environ.get("NODE_URL"), ABI, PRIVATE_KEYS)
@@ -81,13 +81,18 @@ def publish():
     
     return {"error":False, "message":"Poc successfully published"}
 
-
 @app.route('/')
 @flask_login.login_required
 def index():
 
-    pocs = batoken.retrieve_pocs()
     username=flask_login.current_user.id
+    pocs = list(batoken.retrieve_pocs())
+
+    for i, _ in enumerate(pocs):
+        poc = list(pocs[i])
+        poc[1] = ADDRESS_TO_USER[pocs[i][1].lower()]
+        poc[10] = [address.lower() for address in list(poc[10])]
+        pocs[i] = poc
 
     return render_template("index.html", contract_abi=ABI, contract_address=CONTRACT_ADDRESS, user_address=USERS[username]['address'], pocs=pocs, username=username)
 
@@ -97,18 +102,18 @@ def logout():
     flask_login.logout_user()
     return redirect(url_for("login"))
 
-@app.route("/mint", methods=['GET', 'POST'])
+@app.route("/mint", methods=['POST'])
 @flask_login.login_required
-def mint():
+def ajax_mint():
     username=flask_login.current_user.id
+   
+    amount = request.form['amount']
+    try:
+        batoken.mint(USERS[username]['address'], amount)
+    except Exception as msg:
+        return {"error":True, "message":str(msg).split(" revert ")[1]}
 
-    if request.method == 'GET':
-        return render_template('mint.html', contract_abi=ABI, contract_address=CONTRACT_ADDRESS, user_address=USERS[username]['address'], username=username)
-    
-    value = request.form['value']
-    batoken.mint(USERS[username]['address'], value)
-
-    return redirect(url_for("mint"))
+    return {"error":False, "message":"Balance updated"}
 
 @app.route("/verify", methods=['POST'])
 @flask_login.login_required
@@ -125,3 +130,18 @@ def ajax_verify():
         return {"error":False, "message":"Poc successfully verified"}
     
     return redirect(url_for('index'))
+
+@app.route("/donate", methods=['POST'])
+@flask_login.login_required
+def ajax_donate():
+    username=flask_login.current_user.id
+   
+    amount = request.form['amount']
+    recipient = request.form['recipient']
+
+    try:
+        batoken.donate(USERS[username]['address'], USERS[recipient]['address'], amount)
+    except Exception as msg:
+        return {"error":True, "message":str(msg).split(" revert ")[1]}
+
+    return {"error":False, "message":"Donation successful, balance updated"}

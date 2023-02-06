@@ -295,7 +295,7 @@
             </form>
         </div>
     </div>
-    <div class="ui mini modal">        
+    <div class="ui mini modal" id="publish_modal">        
         <div class="header">
             <span id="modal_status"></span>
         </div>
@@ -366,7 +366,7 @@
                             $("#modal_status").text("Publish successful")
                         }
                         $("#modal_message").text(response.message)
-                        $('.ui.mini.modal').modal('show');
+                        $('#publish_modal').modal('show');
                     },
                 });
                 return false;

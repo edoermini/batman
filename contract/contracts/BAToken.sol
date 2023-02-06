@@ -78,10 +78,7 @@ contract BAToken {
         }
        
         balance[msg.sender] += tokens;
-        uint intialBalance = totalBalance;
         totalBalance += tokens;
-
-        updateVerifyCost(intialBalance);
 
         emit Minted(tokens, balance[msg.sender]);
     }
