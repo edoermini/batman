@@ -10,8 +10,9 @@ WORKDIR /project
 ADD ./app/ /project
 
 
-ENV BUILD=blockchain_conf/truffle/BAToken.json
-ENV ACCOUNTS=blockchain_conf/ganache/addresses.json
+ENV BUILD=/project/blockchain_conf/truffle/BAToken.json
+ENV ACCOUNTS=/project/blockchain_conf/ganache/addresses.json
 ENV DB_DIR=/project/database/
+ENV NODE_URL=http://ganache:8545
 
 CMD ["flask", "run", "--host=0.0.0.0"]

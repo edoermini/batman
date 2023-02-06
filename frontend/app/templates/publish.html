@@ -4,7 +4,7 @@
     <div class="ui container">
         <div>
             <!-- form container -->
-            <form action="/publish" method="post">
+            <form action="" id="publish_form">
                 <div class="ui form">
                     <div class="fields" style="justify-content: space-between;" id="form_fields">
                         <div class="field">
@@ -325,10 +325,27 @@
     </script>
 
     <script>
-        function publish() {
-
-            // request to the blockchain
-        }
+        $(document).ready(function() {
+            $("#publish_form").on('submit', (function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/publish",
+                    type: "post",
+                    data: {
+                        title: $('#title').val(),
+                        cve: $('#cve').val(),
+                        type: $('#type').val(),
+                        severity: $('#severity').val(),
+                        language: $('#language').val(),
+                        poc: editor.getValue()
+                    },
+                    success: function(data) {
+                        console.log(data)
+                    }
+                });
+                return false;
+            }));
+    });
     </script>
 </body>
 </html>

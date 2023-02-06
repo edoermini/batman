@@ -11,7 +11,7 @@ services:
     depends_on:
       - ganache
     networks:
-      - backend
+      - blockchain
     volumes:
       - ${PWD}/shared/truffle:/home/app/build/contracts/:rw
       - /home/app/node_modules
@@ -25,7 +25,7 @@ services:
     volumes:
       - ${PWD}/shared/ganache/:/home/shared/:rw
     networks:
-      - backend
+      - blockchain
 
   frontend:
     build:
@@ -40,10 +40,12 @@ services:
     depends_on:
       - ganache
       - truffle
+    networks:
+      - blockchain
 
 volumes:
   blockchain_files:
 
 networks:
-  backend:
+  blockchain:
     driver: "bridge"

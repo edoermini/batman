@@ -9,13 +9,13 @@
         <div class="ui item">
             <i class="check circle icon"></i>
             <b>Verify Cost: </b> 
-            <span style="margin-left: 5px;" id="verify-cost">10</span>
+            <span style="margin-left: 5px;" id="verify-cost"></span>
         </div>
 
         <div class="ui item">
             <i class="ethereum icon"></i> 
             <b>Balance: </b> 
-            <span style="margin-left: 5px;" id="balance">{{ balance }}</span>
+            <span style="margin-left: 5px;" id="balance"></span>
         </div>
 
         <div class="ui right dropdown item">
@@ -23,6 +23,11 @@
             <b>{{username}}</b>
             <i class="dropdown icon"></i>
             <div class="menu">
+                <div class="item">
+                    <a href="/mint" style="color: inherit;">
+                        <i class="ethereum icon"></i> Buy BAToken
+                    </a>
+                </div>
                 <div class="item">
                     <a href="/logout" style="color: inherit;">
                         <i class="sign-out icon"></i> Logout
@@ -35,36 +40,35 @@
 
 <script>
 
+    var contractABI = JSON.parse('{{ contract_abi | tojson | safe}}')
+    var contractAddress = "{{contract_address}}"
+    var userAddress = "{{user_address}}"
+
     if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider)
     } else {
         web3 = new Web3(new Web3.providers.HttpProvider('http://ganache:8545'))
     }
 
-    var contractABI = "{{contract_abi}}"
-    var contractAddress = "{{contract_address}}"
-    var senderAddress = "{{sender_address}}"
-
     var contract = new web3.eth.Contract(contractABI, contractAddress)
 
     $(document).ready(
         function verifyCostUpdate() {
-            console.log("{{address}}")
-            var verifyCost = contract.methods.verifyCost.call()
-            $('#verify-cost').text(verifyCost)
+            var verCost
+            contract.methods.verifyCost().call(function(err, result) {
+                $('#verify-cost').text(result)
+            })
 
-            setTimeout(verifyCostUpdate, 1000);
+            setTimeout(verifyCostUpdate, 500);
         }
     )
 
     $(document).ready(
         function balanceUpdate() {
-            // ajax request to blockchain
-            console.log("{{address}}")
-            var balance = Math.round(Math.random()*100)
-            $('#balance').text(balance)
-
-            setTimeout(balanceUpdate, 1000);
+            contract.methods.balance(userAddress).call(function(err, result) {
+                $('#balance').text(result)
+            })
+            setTimeout(balanceUpdate, 500);
         }
     )
 
