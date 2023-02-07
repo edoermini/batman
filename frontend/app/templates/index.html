@@ -15,7 +15,7 @@
                         <div class="content">
                                 <div class="header">
                                     <!-- title -->
-                                    {{ poc[8] }}
+                                    {{ poc.title }}
                                 </div>
                                 <div class="description">
                                     <div class="ui list">
@@ -24,21 +24,21 @@
                                         <div class="content">
                                             <!-- author -->
                                             <b>Author:</b>
-                                            {{ poc[1] }}
+                                            {{ poc.author }}
                                         </div>
                                         </div>
                                         <div class="item">
                                             <i class="bug icon"></i>
                                         <div class="content">
                                             <!-- CVE -->
-                                            <b>CVE:</b> {{ poc[6] }}
+                                            <b>CVE:</b> {{ poc.cve }}
                                         </div>
                                         </div>
                                         <div class="item">
                                             <i class="tag icon"></i>
                                             <div class="content">
                                                 <!-- Exploit type -->
-                                                <b>Type:</b> {{ poc[7] }}
+                                                <b>Type:</b> {{ poc.type }}
                                             </div>
                                         </div>
 
@@ -46,7 +46,7 @@
                                             <i class="exclamation circle icon"></i>
                                             <div class="content">
                                                 <!-- Severity -->
-                                                <b>Severity:</b> {{ poc[5] }}
+                                                <b>Severity:</b> {{ poc.severity }}
                                             </div>
                                         </div>
 
@@ -54,7 +54,7 @@
                                             <i class="check circle icon"></i>
                                             <div class="content">
                                                 <!-- Verified -->
-                                                {% if poc[9] %}
+                                                {% if poc.verified %}
                                                     <b>Verified:</b> yes
                                                 {%  else %}
                                                     <b>Verified:</b> no
@@ -66,14 +66,14 @@
                                             <i class="code icon"></i>
                                             <div class="content">
                                                 <!-- language -->
-                                                <b>Language:</b> {{ poc[3] }}
+                                                <b>Language:</b> {{ poc.language }}
                                             </div>
                                         </div>
                                         
                                         <div class="ui divider"></div>
 
-                                        <div class="item" style="cursor:pointer;" onclick="return viewCode('{{ poc[0] }}');">
-                                            <i class="chevron down icon code-arrow" id="code-arrow-{{ poc[0] }}"></i>
+                                        <div class="item" style="cursor:pointer;" onclick="return viewCode('{{ poc.id }}');">
+                                            <i class="chevron down icon code-arrow" id="code-arrow-{{ poc.id }}"></i>
                                             <div class="content">
                                                 <!-- Code -->
                                                 <b>Code</b>
@@ -82,21 +82,25 @@
 
                                     </div>
                                 </div>
-                            <div class="description code transition hidden" id="code-{{ poc[0]}}">
-                                <pre><code class="{{ poc[3] }}">
-{{ poc[2] | base64_decode }}
+                            <div class="description code transition hidden" id="code-{{ poc.id }}">
+                                <pre><code class="{{ poc.language }}">
+{{ poc.poc | base64_decode }}
                                 </code></pre>
                             </div>
                         </div>
                         <div class="extra content">
                             <div class="ui buttons" style="width: 100%;">
-                                {% if poc[9] or user_address in poc[10] %}
-                                <div class="ui green disabled button" id="verify_btn_{{poc[0]}}"> <i class="check circle icon"></i> Verify</div>
+                                {% if poc.verified or user_address in poc.verifiers or user_address == poc.author_address %}
+                                <div class="ui green disabled button" id="verify_btn_{{poc.id}}"> <i class="check circle icon"></i> Verify</div>
                                 {% else  %}
-                                <div class="ui green button" id="verify_btn_{{poc[0]}}" onclick='return verifyRequest({{poc[0]}})'> <i class="check circle icon"></i> Verify</div>
+                                <div class="ui green button" id="verify_btn_{{poc.id}}" onclick='return verifyRequest({{poc.id}})'> <i class="check circle icon"></i> Verify</div>
                                 {% endif %}
                                 <div class="or"></div>
-                                <div class="ui button" id="donate_btn" onclick="return show_donate_modal('{{poc[1]}}')"><i class="ethereum icon"></i> Donate</div>
+                                {% if user_address == poc.author_address %}
+                                <div class="ui button disabled" id="donate_btn"><i class="ethereum icon"></i> Donate</div>
+                                {% else %}
+                                <div class="ui button" id="donate_btn" onclick="return show_donate_modal('{{poc.author}}')"><i class="ethereum icon"></i> Donate</div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -151,62 +155,7 @@
             </div>
         </div>
     </div>
-
-    <script>
-        $('#home').addClass('active')
-        $('.ui.dropdown').dropdown();
-
-        function viewCode(poc_id) {
-            $('#code-'+poc_id).transition('slide down')
-            $("#code-arrow-"+poc_id).toggleClass('flip');
-        }
-
-        function verifyRequest(poc_id) {
-            $.ajax({
-                url: "/verify",
-                type: "post",
-                data: {
-                    pocid: poc_id,
-                },
-                success: function(response) {
-                    if (response.error) {
-                        $("#modal_status").text("Verify failed")
-                    } else {
-                        $("#modal_status").text("Verify successful")
-                        $("#verify_btn_"+poc_id).addClass('disabled')
-                    }
-                    $("#modal_message").text(response.message)
-                    $('#verify_modal').modal('show');
-                },
-            });
-            return true;
-        }
-
-        function show_donate_modal(recipient) {
-            $('#recipient').text(recipient)
-            $('#donate_modal').modal('show')
-        }
-
-        function donate(amount) {
-            $.ajax({
-                url: "/donate",
-                type: "post",
-                data: {
-                    amount: amount,
-                    recipient: $("#recipient").text()
-                },
-                success: function(response) {
-                    if (response.error) {
-                        $("#donate_result_status").text("Donation failed")
-                    } else {
-                        $("#donate_result_status").text("Donation successful")
-                    }
-                    $("#donate_result_message").text(response.message)
-                    $('#donate_result_modal').modal('show');
-                },
-            });
-            return true;
-        }
-    </script>
 </body>
+
+<script src="{{ url_for('static', filename='js/index.js') }}" ></script>
 </html>

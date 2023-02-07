@@ -66,7 +66,6 @@
 </div>
 
 <script>
-
     var contractABI = JSON.parse('{{ contract_abi | tojson | safe}}')
     var contractAddress = "{{contract_address}}"
     var userAddress = "{{user_address}}"
@@ -98,25 +97,6 @@
             setTimeout(balanceUpdate, 500);
         }
     )
-    
-    function mint(amount) {
-        $.ajax({
-            url: "/mint",
-            type: "post",
-            data: {
-                amount: amount,
-            },
-            success: function(response) {
-                if (response.error) {
-                    $("#balance_modal_status").text("Purchase failed")
-                } else {
-                    $("#balance_modal_status").text("Purchase successful")
-                }
-                $("#balance_modal_message").text(response.message)
-                $('#balance_message_modal').modal('show');
-            },
-        });
-        return true;
-    }
-
 </script>
+
+<script src="{{ url_for('static', filename='js/nav.js') }}" ></script>

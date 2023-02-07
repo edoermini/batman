@@ -86,13 +86,29 @@ def publish():
 def index():
 
     username=flask_login.current_user.id
-    pocs = list(batoken.retrieve_pocs())
-
-    for i, _ in enumerate(pocs):
-        poc = list(pocs[i])
-        poc[1] = ADDRESS_TO_USER[pocs[i][1].lower()]
-        poc[10] = [address.lower() for address in list(poc[10])]
-        pocs[i] = poc
+    pocs_list = list(batoken.retrieve_pocs())
+    pocs = []
+    for poc_tuple in pocs_list:
+        pocs.append({
+            "id": poc_tuple[0],
+            "author_address": poc_tuple[1].lower(),
+            "poc": poc_tuple[2],
+            "language": poc_tuple[3],
+            "pocHash": poc_tuple[4],
+            "severity": poc_tuple[5],
+            "cve": poc_tuple[6],
+            "type": poc_tuple[7],
+            "title": poc_tuple[8],
+            "verified": poc_tuple[9],
+            "verifiers": [address.lower() for address in list(poc_tuple[10])],
+            "tokens": poc_tuple[11],
+            "author": ADDRESS_TO_USER[poc_tuple[1].lower()]
+        })
+        # poc = list(pocs[i])
+        # poc[1] = pocs[i][1].lower()
+        # poc.append(ADDRESS_TO_USER[pocs[i][1]])
+        # poc[10] = [address.lower() for address in list(poc[10])]
+        # pocs[i] = poc
 
     return render_template("index.html", contract_abi=ABI, contract_address=CONTRACT_ADDRESS, user_address=USERS[username]['address'], pocs=pocs, username=username)
 

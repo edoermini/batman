@@ -92,6 +92,7 @@ contract BAToken {
     */
     function verify(uint pocID) public {
         require((pocID >= 0 && pocID < pocs.length), "This PoC doesn't exist");
+        require((msg.sender != pocs[pocID].author), "You cannot verify your PoCs");
         require(pocs[pocID].verified == false, "PoC already verified");
         require(balance[msg.sender] >= verifyCost, "Not enough tokens for verify");
         require(hasVerified(pocID, msg.sender) == false, "You already verified this PoC");
@@ -104,7 +105,7 @@ contract BAToken {
         
         balance[msg.sender] -= verifyCost;
 
-        if (pocs[pocID].verifiers.length < (totalAddresses/2)+1) {
+        if (pocs[pocID].verifiers.length <= ((totalAddresses-1)/2)) {
             // majority not reached yet
             return;
         }
@@ -185,27 +186,11 @@ contract BAToken {
     }
 
     /*
-    * @notice Reads a proof of concept
-    * @param pocID The ID of the PoC to return
-    * @return PoC The requested PoC
-    */
-    function read(uint pocID) public view returns (PoC memory) {
-        require((pocID >= 0 && pocID < pocs.length), "This PoC doesn't exist");
-        PoC memory poc = pocs[pocID];
-        return poc;
-    }
-
-    /*
     * @notice Reads all published proof of concepts
     * @return PoC[] The published PoCs
     */
     function readAll() public view returns (PoC[] memory) {
         return pocs;
-    }
-
-    function withdraw(uint amount) public {
-        require(msg.sender == minter, "You cannot withdraw");
-        payable(msg.sender).transfer(amount);
     }
 
     /*
@@ -222,11 +207,12 @@ contract BAToken {
     * @param to The recipient of the donation
     * @param amount The amount of tokens to transfer
     */
-    function donate(address to, uint amount) public {
+    function donate(address recipient, uint amount) public {
+        require(msg.sender != recipient, "You can't make a donation to yourself");
         require(balance[msg.sender] >= amount, "You don't have enough tokens");
 
         balance[msg.sender] -= amount;
-        balance[to] += amount;
+        balance[recipient] += amount;
     }
     
     /*
