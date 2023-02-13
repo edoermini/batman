@@ -8,6 +8,10 @@ from batoken import BAToken
 
 batoken = BAToken(CONTRACT_ADDRESS, os.environ.get("NODE_URL"), ABI, PRIVATE_KEYS)
 
+# adding users to the balance of smart contract
+for user in USERS:
+    batoken.mint(USERS[user]['address'], 0.002)
+
 app = Flask(__name__)
 app.secret_key = 'super secret string'  # Change this!
 

@@ -45,4 +45,3 @@ class BAToken:
         })
         signed_txn = self.w3.eth.account.signTransaction(transaction, private_key=self.private_keys[sender_address])
         self.w3.eth.sendRawTransaction(signed_txn.rawTransaction)
-
