@@ -6,6 +6,7 @@ services:
     build:
       context: ./contract
       target: truffle
+    container_name: truffle
     working_dir: /home/app
     command: bash -c "rm -rf build/contracts/* && truffle deploy --reset"
     depends_on:
@@ -20,6 +21,7 @@ services:
     build:
       context: ./contract
       target: ganache
+    container_name: ganache
     ports:
       - 8545:8545
     volumes:
@@ -32,6 +34,7 @@ services:
       context: frontend
     working_dir: /project
     command: bash -c "python /wait-for-deploy.py && flask run --host=0.0.0.0"
+    container_name: frontend
     ports:
       - "5000:5000"
     volumes:
